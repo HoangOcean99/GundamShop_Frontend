@@ -40,7 +40,10 @@ const HomePage = () => {
 
     return (
         <div className="w-full mx-auto bg-transparent">
+            {/* --- NAVIGATION BAR --- */}
             <Header />
+
+            {/* --- HERO BANNER --- */}
             <div className="grid grid-cols-2 h-[480px] border-b border-white/5 shadow-[0_10px_30px_rgba(0,0,0,0.5)] z-10 relative">
                 {/* Left: Japan */}
                 <div className="relative group overflow-hidden border-r border-black/50 bg-[#050B14]/40">
@@ -197,6 +200,7 @@ const HomePage = () => {
                                         <strong className="text-white">Hotline:</strong> 0123 456
                                         789
                                     </span>
+
                                 </div>
                                 <div className="flex items-center text-[11px]">
                                     <IoLocationOutline className="w-5 h-5 mr-2 -ml-0.5 text-gray-300 shrink-0" />
