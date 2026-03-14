@@ -13,6 +13,7 @@ import {
   IoLayersOutline,
 } from "react-icons/io5";
 import { FaFacebook, FaYoutube } from "react-icons/fa";
+import Header from "../components/Header";
 
 const ChinaGundamPage = () => {
   const categories = [
@@ -157,73 +158,7 @@ const ChinaGundamPage = () => {
       {/* Dark overlay for better content contrast */}
       <div className="absolute inset-0 bg-black/60 z-0"></div>
 
-      {/* --- NAVIGATION BAR --- */}
-      <nav className="flex items-center justify-between px-10 py-6 border-b border-white/5 bg-[#060608]/20 backdrop-blur-md sticky top-0 z-50">
-        <Link to="/" className="flex items-center space-x-4 cursor-pointer">
-          <img
-            src="../src/assets/logo.png"
-            alt="Logo"
-            className="w-12 h-12 object-contain mix-blend-screen"
-          />
-          <span className="font-black italic text-3xl tracking-tighter drop-shadow-lg text-white">
-            GUNDAM STORE
-          </span>
-        </Link>
-
-        <div className="hidden md:flex space-x-8 text-[11px] font-bold uppercase tracking-[0.2em] text-gray-300">
-          <Link
-            to="/"
-            className="hover:text-red-500 transition-colors border-b-2 border-transparent hover:border-red-500 pb-1"
-          >
-            Trang chủ
-          </Link>
-          <a href="#" className="text-red-500 border-b-2 border-red-500 pb-1">
-            Sản phẩm
-          </a>
-          <a
-            href="#"
-            className="hover:text-red-500 transition-colors border-b-2 border-transparent hover:border-red-500 pb-1"
-          >
-            Tin tức
-          </a>
-          <a
-            href="#"
-            className="hover:text-red-500 transition-colors border-b-2 border-transparent hover:border-red-500 pb-1"
-          >
-            Hướng dẫn
-          </a>
-          <a
-            href="#"
-            className="hover:text-red-500 transition-colors border-b-2 border-transparent hover:border-red-500 pb-1"
-          >
-            Liên hệ
-          </a>
-        </div>
-
-        <div className="flex items-center space-x-6">
-          <div className="flex items-center bg-white/5 hover:bg-white/10 transition-colors px-4 py-1.5 rounded-full border border-white/10">
-            <input
-              type="text"
-              placeholder="Search"
-              className="bg-transparent text-[11px] focus:outline-none w-32 text-gray-200"
-            />
-            <IoSearchOutline className="text-gray-400 w-4 h-4 ml-2 cursor-pointer hover:text-white transition" />
-          </div>
-
-          <div className="flex items-center space-x-4 text-gray-400">
-            <Link to="/login">
-              <IoPersonOutline className="w-5 h-5 cursor-pointer hover:text-white transition" />
-            </Link>
-            <IoHeartOutline className="w-5 h-5 cursor-pointer hover:text-white transition" />
-            <div className="relative">
-              <IoCartOutline className="w-5 h-5 cursor-pointer hover:text-white transition" />
-              <span className="absolute -top-1 -right-1 bg-red-600 w-2.5 h-2.5 rounded-full border border-black shadow-glow-red"></span>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      {/* --- HERO TITLE AREA --- */}
+      <Header />
       <div className="max-w-[1400px] mx-auto px-10 pt-16 pb-6 relative z-20 text-left">
         <h1 className="text-5xl font-black italic tracking-wider drop-shadow-[0_0_30px_rgba(255,50,0,0.5)] text-white uppercase">
           GUNDAM TRUNG QUỐC

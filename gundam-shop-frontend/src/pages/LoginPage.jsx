@@ -1,15 +1,24 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
 import { IoChevronBackOutline } from "react-icons/io5";
+import { loginByFirebase } from "../api/authApi";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+  const handleLogin = async () => {
+    try {
+      await loginByFirebase();
+      navigate('/');
+    } catch (error) {
+      
+    }
+  }
   return (
     <div
       className="w-full h-screen bg-fixed bg-cover bg-center relative flex items-center justify-center"
       style={{ backgroundImage: "url('../src/assets/jpGundamBG.png')" }}
     >
-      {/* Dark & blurred overlay for focus */}
       <div className="absolute inset-0 bg-[#050B14]/70 backdrop-blur-sm z-0"></div>
 
       <div className="absolute top-8 left-10 z-20">
@@ -44,7 +53,10 @@ const LoginPage = () => {
         <button className="w-full group relative flex items-center justify-center px-6 py-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-blue-500/50 transition-all duration-300 rounded-sm overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-blue-600/0 via-blue-600/10 to-blue-600/0 opacity-0 group-hover:opacity-100 transition-opacity"></div>
           <FaGoogle className="w-5 h-5 mr-3 text-red-500 relative z-10" />
-          <span className="text-sm font-black uppercase tracking-widest text-white relative z-10">
+          <span 
+          onClick={handleLogin}
+          className="text-sm font-black uppercase tracking-widest text-white relative z-10"
+          >
             Đăng nhập bằng Google
           </span>
         </button>
