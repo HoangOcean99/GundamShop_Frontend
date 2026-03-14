@@ -228,14 +228,14 @@ const JapanGundamPage = () => {
           </div>
 
           <div className="flex items-center space-x-4 text-gray-400">
-            <Link to="/login">
+            <Link to="/profile">
               <IoPersonOutline className="w-5 h-5 cursor-pointer hover:text-white transition" />
             </Link>
             <IoHeartOutline className="w-5 h-5 cursor-pointer hover:text-white transition" />
-            <div className="relative cursor-pointer hover:text-white transition">
+            <Link to="/cart" className="relative cursor-pointer hover:text-white transition">
               <IoCartOutline className="w-5 h-5" />
               <span className="absolute -top-1 -right-1 bg-red-600 w-2.5 h-2.5 rounded-full border border-black"></span>
-            </div>
+            </Link>
           </div>
         </div>
       </nav>

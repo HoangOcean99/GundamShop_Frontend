@@ -96,16 +96,16 @@ const HomePage = () => {
           </div>
 
           <div className="flex items-center space-x-4 text-gray-400">
-            <Link to="/login" className="hover:text-white transition-colors cursor-pointer">
+            <Link to="/profile" className="hover:text-white transition-colors cursor-pointer">
               <IoPersonOutline className="w-5 h-5" />
             </Link>
             <button className="hover:text-white transition-colors cursor-pointer">
               <IoHeartOutline className="w-5 h-5" />
             </button>
-            <button className="hover:text-white transition-colors cursor-pointer relative">
+            <Link to="/cart" className="hover:text-white transition-colors cursor-pointer relative">
               <IoCartOutline className="w-5 h-5" />
               <span className="absolute -top-1 -right-1 bg-red-600 w-2.5 h-2.5 rounded-full border border-black"></span>
-            </button>
+            </Link>
           </div>
         </div>
       </nav>
