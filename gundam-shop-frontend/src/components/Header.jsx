@@ -104,7 +104,7 @@ const Header = () => {
                             className="w-5 h-5" />
                         <span className="absolute -top-1 -right-1 bg-red-600 w-2.5 h-2.5 rounded-full border border-black"></span>
                     </div>
-                    <div className="relative">
+                    <div className="relative z-999">
                         {avatar ? (
                             <div>
                                 <img
