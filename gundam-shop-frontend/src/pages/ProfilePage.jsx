@@ -22,6 +22,7 @@ const ProfilePage = () => {
     address: "",
   });
   const [userId, setUserId] = useState(null);
+  const [avatar, setAvatar] = useState(null);
   const [loading, setLoading] = useState(true);
   const [view, setView] = useState('profile');
   const [orders, setOrders] = useState([]);
@@ -31,6 +32,7 @@ const ProfilePage = () => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (!user) {
         setLoading(false);
+        setAvatar(null);
         return;
       }
 
@@ -44,6 +46,9 @@ const ProfilePage = () => {
           phone: userData.phone || "",
           address: userData.address || "",
         });
+
+        const storedAvatar = localStorage.getItem("avatar") || user.photoURL;
+        setAvatar(storedAvatar);
       } catch (error) {
         console.error("Error fetching profile data:", error);
       } finally {
@@ -127,7 +132,15 @@ const ProfilePage = () => {
 
             <div className="flex items-center space-x-4 border-b border-white/5 pb-6 mb-6">
               <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-900 border border-white/20 flex items-center justify-center shadow-[0_0_15px_rgba(0,102,255,0.4)]">
-                <IoPersonOutline className="w-6 h-6 text-white" />
+                {avatar ? (
+                  <img
+                    src={avatar}
+                    alt="avatar"
+                    className="w-12 h-12 rounded-full object-cover"
+                  />
+                ) : (
+                  <IoPersonOutline className="w-6 h-6 text-white" />
+                )}
               </div>
               <div>
                 <h3 className="text-sm font-black text-white uppercase tracking-wider">
