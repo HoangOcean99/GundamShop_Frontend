@@ -1,19 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {
-  IoSearchOutline,
-  IoPersonOutline,
-  IoHeartOutline,
-  IoCartOutline,
-  IoLocationOutline,
-  IoMailOutline,
-  IoCallOutline,
-  IoChevronForwardOutline,
-  IoGridOutline,
-  IoLayersOutline,
-} from "react-icons/io5";
-import { FaFacebook, FaYoutube } from "react-icons/fa";
+import { IoChevronForwardOutline } from "react-icons/io5";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const ChinaGundamPage = () => {
   const categories = [
@@ -296,97 +285,7 @@ const ChinaGundamPage = () => {
       </div>
 
       {/* --- FOOTER --- */}
-      <footer className="px-10 py-16 bg-[#050507]/60 backdrop-blur-2xl border-t border-white/10 text-gray-400 relative z-20">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
-          <div className="space-y-4">
-            <h4 className="text-white text-[12px] font-bold uppercase tracking-widest mb-6">
-              THÔNG TIN
-            </h4>
-            <ul className="text-[11px] space-y-3 font-semibold uppercase tracking-wider">
-              <li className="hover:text-red-400 transition-colors cursor-pointer w-max">
-                Giới thiệu
-              </li>
-              <li className="hover:text-red-400 transition-colors cursor-pointer w-max">
-                Chính sách trả hàng
-              </li>
-              <li className="hover:text-red-400 transition-colors cursor-pointer w-max">
-                Điều khoản dịch vụ
-              </li>
-            </ul>
-          </div>
-
-          <div className="space-y-4">
-            <h4 className="text-white text-[12px] font-bold uppercase tracking-widest mb-6">
-              HỖ TRỢ KHÁCH HÀNG
-            </h4>
-            <ul className="text-[11px] space-y-3 font-semibold uppercase tracking-wider">
-              <li className="hover:text-red-400 transition-colors cursor-pointer w-max">
-                Đặt hàng trung gian
-              </li>
-              <li className="hover:text-red-400 transition-colors cursor-pointer w-max">
-                Hướng dẫn mua hàng
-              </li>
-              <li className="hover:text-red-400 transition-colors cursor-pointer w-max">
-                Mua thế nào giá tốt
-              </li>
-            </ul>
-          </div>
-
-          <div className="space-y-4">
-            <h4 className="text-white text-[12px] font-bold uppercase tracking-widest mb-6">
-              THEO DÕI CHÚNG TÔI
-            </h4>
-            <ul className="text-[11px] space-y-4 font-semibold uppercase tracking-wider">
-              <li className="flex items-center hover:text-red-400 transition-colors cursor-pointer w-max">
-                <FaFacebook className="w-4 h-4 mr-3 text-blue-600/80" />{" "}
-                Facebook
-              </li>
-              <li className="flex items-center hover:text-red-400 transition-colors cursor-pointer w-max">
-                <FaYoutube className="w-4 h-4 mr-3 text-red-700/80" /> Youtube
-              </li>
-              <li className="flex items-center hover:text-red-400 transition-colors cursor-pointer w-max text-xs">
-                <IoMailOutline className="w-4 h-4 mr-3 text-gray-500" /> Email
-              </li>
-            </ul>
-          </div>
-
-          <div className="space-y-6">
-            <h4 className="text-white text-[12px] font-bold uppercase tracking-widest mb-4">
-              LIÊN HỆ
-            </h4>
-            <div className="space-y-3">
-              <div className="flex items-center text-[10px] font-bold">
-                <IoCallOutline className="w-4 h-4 mr-3 text-red-800/60" />
-                <span>
-                  HOTLINE:{" "}
-                  <strong className="text-white ml-2">0123 456 789</strong>
-                </span>
-              </div>
-              <div className="flex items-start text-[10px] font-bold">
-                <IoLocationOutline className="w-4 h-4 mr-3 text-red-800/60 shrink-0" />
-                <span className="leading-tight">
-                  ĐỊA CHỈ: ĐẠI HỌC FPT HÒA LẠC
-                </span>
-              </div>
-            </div>
-
-            <div className="flex justify-end items-center space-x-2 pt-2 border-t border-white/5 mt-6">
-              <div className="bg-white px-2 py-1 rounded text-[9px] font-black italic text-blue-800 tracking-tighter">
-                VISA
-              </div>
-              <div className="bg-[#EB001B] w-7 h-4 rounded-sm flex items-center justify-center">
-                <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F00] opacity-90"></div>
-              </div>
-              <div className="bg-gradient-to-r from-blue-900 to-red-500 px-2 py-1 rounded text-[9px] font-bold text-white tracking-widest leading-tight">
-                JCB
-              </div>
-              <div className="bg-[#050507] border border-white/20 px-2 py-1 rounded text-[9px] font-bold text-white uppercase">
-                COD
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

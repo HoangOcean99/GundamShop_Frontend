@@ -1,17 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {
-  IoSearchOutline,
-  IoPersonOutline,
-  IoHeartOutline,
-  IoCartOutline,
-  IoLocationOutline,
-  IoMailOutline,
-  IoCallOutline,
-  IoChevronForwardOutline,
-} from "react-icons/io5";
-import { FaFacebook, FaYoutube } from "react-icons/fa";
+import { IoChevronForwardOutline } from "react-icons/io5";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const JapanGundamPage = () => {
   const categories = [
@@ -295,92 +286,7 @@ const JapanGundamPage = () => {
       </div>
 
       {/* --- FOOTER --- */}
-      <footer className="px-10 py-12 bg-[#050507]/40 backdrop-blur-xl border-t border-white/10 text-gray-400 relative overflow-hidden">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
-          <div className="space-y-4">
-            <h4 className="text-white text-[12px] font-bold uppercase tracking-widest mb-6">
-              THÔNG TIN
-            </h4>
-            <ul className="text-[11px] space-y-3">
-              <li className="hover:text-blue-400 transition-colors cursor-pointer w-max uppercase">
-                Giới thiệu
-              </li>
-              <li className="hover:text-blue-400 transition-colors cursor-pointer w-max uppercase">
-                Chính sách trả hàng
-              </li>
-              <li className="hover:text-blue-400 transition-colors cursor-pointer w-max uppercase">
-                Điều khoản dịch vụ
-              </li>
-            </ul>
-          </div>
-
-          <div className="space-y-4">
-            <h4 className="text-white text-[12px] font-bold uppercase tracking-widest mb-6">
-              HỖ TRỢ KHÁCH HÀNG
-            </h4>
-            <ul className="text-[11px] space-y-3">
-              <li className="hover:text-blue-400 transition-colors cursor-pointer w-max uppercase">
-                Đặt hàng trung gian
-              </li>
-              <li className="hover:text-blue-400 transition-colors cursor-pointer w-max uppercase">
-                Hướng dẫn mua hàng
-              </li>
-              <li className="hover:text-blue-400 transition-colors cursor-pointer w-max uppercase">
-                Mua thế nào giá tốt
-              </li>
-            </ul>
-          </div>
-
-          <div className="space-y-4">
-            <h4 className="text-white text-[12px] font-bold uppercase tracking-widest mb-6">
-              THEO DÕI CHÚNG TÔI
-            </h4>
-            <ul className="text-[11px] space-y-3">
-              <li className="flex items-center hover:text-blue-400 transition-colors cursor-pointer w-max text-xs font-bold uppercase">
-                <FaFacebook className="w-4 h-4 mr-3 text-blue-500" /> Facebook
-              </li>
-              <li className="flex items-center hover:text-red-400 transition-colors cursor-pointer w-max text-xs font-bold uppercase">
-                <FaYoutube className="w-4 h-4 mr-3 text-red-500" /> YouTube
-              </li>
-            </ul>
-          </div>
-
-          <div className="space-y-4">
-            <div className="mb-6 flex justify-between items-start">
-              <div className="space-y-3">
-                <div className="flex items-center text-[10px]">
-                  <IoCallOutline className="w-4 h-4 mr-3 text-gray-300" />
-                  <span>
-                    <strong className="text-white">Hotline:</strong> 0123 456
-                    789
-                  </span>
-                </div>
-                <div className="flex items-center text-[10px]">
-                  <IoLocationOutline className="w-5 h-5 mr-2 -ml-0.5 text-gray-300 shrink-0" />
-                  <span className="leading-tight">
-                    Địa chỉ: Đại học FPT Hòa Lạc
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex justify-end items-center space-x-2 pt-2 border-t border-white/5 mt-6">
-              <div className="bg-white px-2 py-1 rounded text-[9px] font-black italic text-blue-800 tracking-tighter">
-                VISA
-              </div>
-              <div className="bg-[#EB001B] w-7 h-4 rounded-sm flex items-center justify-center">
-                <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F00] opacity-90"></div>
-              </div>
-              <div className="bg-gradient-to-r from-blue-900 to-red-500 px-2 py-1 rounded text-[9px] font-bold text-white tracking-widest leading-tight">
-                JCB
-              </div>
-              <div className="bg-[#050507] border border-white/20 px-2 py-1 rounded text-[9px] font-bold text-white">
-                COD
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

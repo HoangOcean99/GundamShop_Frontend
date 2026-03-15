@@ -1,17 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {
-  IoSearchOutline,
-  IoPersonOutline,
-  IoHeartOutline,
-  IoCartOutline,
-  IoLocationOutline,
-  IoMailOutline,
-  IoCallOutline,
-  IoTrashOutline,
-  IoChevronForwardOutline,
-} from "react-icons/io5";
-import { FaFacebook, FaYoutube } from "react-icons/fa";
+import { IoTrashOutline, IoChevronForwardOutline } from "react-icons/io5";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const CartPage = () => {
   // Dummy cart data
@@ -62,73 +53,7 @@ const CartPage = () => {
       <div className="absolute inset-0 bg-black/60 z-0"></div>
 
       {/* --- NAVIGATION BAR --- */}
-      <nav className="flex items-center justify-between px-10 py-6 border-b border-white/5 bg-[#060608]/20 backdrop-blur-md sticky top-0 z-50">
-        <Link to="/" className="flex items-center space-x-4 cursor-pointer">
-          <img
-            src="../src/assets/logo.png"
-            alt="Logo"
-            className="w-12 h-12 object-contain mix-blend-screen"
-          />
-          <span className="font-black italic text-3xl tracking-tighter drop-shadow-lg text-white">
-            GUNDAM STORE
-          </span>
-        </Link>
-
-        <div className="hidden md:flex space-x-8 text-[11px] font-bold uppercase tracking-[0.2em] text-gray-300">
-          <Link
-            to="/"
-            className="hover:text-blue-500 transition-colors drop-shadow-sm border-b-2 border-transparent hover:border-blue-500 pb-1"
-          >
-            Trang chủ
-          </Link>
-          <a
-            href="#"
-            className="hover:text-blue-500 transition-colors drop-shadow-sm border-b-2 border-transparent hover:border-blue-500 pb-1"
-          >
-            Sản phẩm
-          </a>
-          <a
-            href="#"
-            className="hover:text-blue-500 transition-colors drop-shadow-sm border-b-2 border-transparent hover:border-blue-500 pb-1"
-          >
-            Tin tức
-          </a>
-          <a
-            href="#"
-            className="hover:text-blue-500 transition-colors drop-shadow-sm border-b-2 border-transparent hover:border-blue-500 pb-1"
-          >
-            Hướng dẫn
-          </a>
-          <a
-            href="#"
-            className="hover:text-blue-500 transition-colors drop-shadow-sm border-b-2 border-transparent hover:border-blue-500 pb-1"
-          >
-            Liên hệ
-          </a>
-        </div>
-
-        <div className="flex items-center space-x-6">
-          <div className="flex items-center bg-white/5 hover:bg-white/10 transition-colors px-4 py-1.5 rounded-full border border-white/10 focus-within:border-white/30 focus-within:bg-white/10">
-            <input
-              type="text"
-              placeholder="Search"
-              className="bg-transparent text-[11px] focus:outline-none w-32 placeholder-gray-500 text-gray-200"
-            />
-            <IoSearchOutline className="text-gray-400 w-4 h-4 ml-2 cursor-pointer hover:text-white transition" />
-          </div>
-
-          <div className="flex items-center space-x-4 text-gray-400">
-            <Link to="/login">
-              <IoPersonOutline className="w-5 h-5 cursor-pointer hover:text-white transition" />
-            </Link>
-            <IoHeartOutline className="w-5 h-5 cursor-pointer hover:text-white transition" />
-            <div className="relative">
-              <IoCartOutline className="w-5 h-5 cursor-pointer text-white" />
-              <span className="absolute -top-1 -right-1 bg-red-600 w-2.5 h-2.5 rounded-full border border-black shadow-[0_0_10px_rgba(255,0,0,0.8)]"></span>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Header />
 
       {/* --- PAGE HEADER --- */}
       <div className="max-w-[1400px] mx-auto w-full px-10 pt-16 pb-6 relative z-20 text-center">
@@ -278,92 +203,7 @@ const CartPage = () => {
       </main>
 
       {/* --- FOOTER --- */}
-      <footer className="px-10 py-12 bg-[#050507]/40 backdrop-blur-xl border-t border-white/10 text-gray-400 relative overflow-hidden mt-auto">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
-          <div className="space-y-4">
-            <h4 className="text-white text-[12px] font-bold uppercase tracking-widest mb-6">
-              THÔNG TIN
-            </h4>
-            <ul className="text-[11px] space-y-3">
-              <li className="hover:text-blue-400 transition-colors cursor-pointer w-max uppercase">
-                Giới thiệu
-              </li>
-              <li className="hover:text-blue-400 transition-colors cursor-pointer w-max uppercase">
-                Chính sách trả hàng
-              </li>
-              <li className="hover:text-blue-400 transition-colors cursor-pointer w-max uppercase">
-                Điều khoản dịch vụ
-              </li>
-            </ul>
-          </div>
-
-          <div className="space-y-4">
-            <h4 className="text-white text-[12px] font-bold uppercase tracking-widest mb-6">
-              HỖ TRỢ KHÁCH HÀNG
-            </h4>
-            <ul className="text-[11px] space-y-3">
-              <li className="hover:text-blue-400 transition-colors cursor-pointer w-max uppercase">
-                Đặt hàng trung gian
-              </li>
-              <li className="hover:text-blue-400 transition-colors cursor-pointer w-max uppercase">
-                Hướng dẫn mua hàng
-              </li>
-              <li className="hover:text-blue-400 transition-colors cursor-pointer w-max uppercase">
-                Mua thế nào giá tốt
-              </li>
-            </ul>
-          </div>
-
-          <div className="space-y-4">
-            <h4 className="text-white text-[12px] font-bold uppercase tracking-widest mb-6">
-              THEO DÕI CHÚNG TÔI
-            </h4>
-            <ul className="text-[11px] space-y-3">
-              <li className="flex items-center hover:text-blue-400 transition-colors cursor-pointer w-max text-xs font-bold uppercase">
-                <FaFacebook className="w-4 h-4 mr-3 text-blue-500" /> Facebook
-              </li>
-              <li className="flex items-center hover:text-red-400 transition-colors cursor-pointer w-max text-xs font-bold uppercase">
-                <FaYoutube className="w-4 h-4 mr-3 text-red-500" /> YouTube
-              </li>
-            </ul>
-          </div>
-
-          <div className="space-y-4">
-            <div className="mb-6 flex justify-between items-start">
-              <div className="space-y-3">
-                <div className="flex items-center text-[10px]">
-                  <IoCallOutline className="w-4 h-4 mr-3 text-gray-300" />
-                  <span>
-                    <strong className="text-white">Hotline:</strong> 0123 456
-                    789
-                  </span>
-                </div>
-                <div className="flex items-center text-[10px]">
-                  <IoLocationOutline className="w-5 h-5 mr-2 -ml-0.5 text-gray-300 shrink-0" />
-                  <span className="leading-tight">
-                    Địa chỉ: Đại học FPT Hòa Lạc
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex justify-end items-center space-x-2 pt-2 border-t border-white/5 mt-6">
-              <div className="bg-white px-2 py-1 rounded text-[9px] font-black italic text-blue-800 tracking-tighter">
-                VISA
-              </div>
-              <div className="bg-[#EB001B] w-7 h-4 rounded-sm flex items-center justify-center">
-                <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F00] opacity-90"></div>
-              </div>
-              <div className="bg-gradient-to-r from-blue-900 to-red-500 px-2 py-1 rounded text-[9px] font-bold text-white tracking-widest leading-tight">
-                JCB
-              </div>
-              <div className="bg-[#050507] border border-white/20 px-2 py-1 rounded text-[9px] font-bold text-white">
-                COD
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

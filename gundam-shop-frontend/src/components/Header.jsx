@@ -39,36 +39,22 @@ const Header = () => {
             </Link>
 
             <div className="hidden md:flex space-x-8 text-[11px] font-bold uppercase tracking-[0.2em] text-gray-300">
-                <Link
-                    to="/"
-                    className="hover:text-blue-500 transition-colors drop-shadow-sm border-b-2 border-transparent hover:border-blue-500 pb-1"
-                >
-                    Trang chủ
-                </Link>
-                <a
-                    href="#"
-                    className="hover:text-blue-500 transition-colors drop-shadow-sm border-b-2 border-transparent hover:border-blue-500 pb-1 text-blue-500 border-blue-500"
-                >
-                    Sản phẩm
-                </a>
-                <a
-                    href="#"
-                    className="hover:text-blue-500 transition-colors drop-shadow-sm border-b-2 border-transparent hover:border-blue-500 pb-1"
-                >
-                    Tin tức
-                </a>
-                <a
-                    href="#"
-                    className="hover:text-blue-500 transition-colors drop-shadow-sm border-b-2 border-transparent hover:border-blue-500 pb-1"
-                >
-                    Hướng dẫn
-                </a>
-                <a
-                    href="#"
-                    className="hover:text-blue-500 transition-colors drop-shadow-sm border-b-2 border-transparent hover:border-blue-500 pb-1"
-                >
-                    Liên hệ
-                </a>
+                {[
+                    { name: "Trang chủ", path: "/" },
+                    { name: "Sản phẩm", path: "#" },
+                    { name: "Tin tức", path: "#" },
+                    { name: "Hướng dẫn", path: "#" },
+                    { name: "Liên hệ", path: "#" },
+                ].map((item) => (
+                    <Link
+                        key={item.name}
+                        to={item.path}
+                        className="relative pb-1 transition-all duration-300 group hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-blue-500 hover:from-[50%] hover:to-red-500 hover:to-[50%] drop-shadow-sm"
+                    >
+                        {item.name}
+                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 from-[50%] to-red-500 to-[50%] transition-all duration-300 group-hover:w-full"></span>
+                    </Link>
+                ))}
             </div>
 
             <div className="flex items-center space-x-6">
