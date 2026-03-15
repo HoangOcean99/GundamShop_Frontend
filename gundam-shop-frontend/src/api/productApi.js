@@ -1,8 +1,8 @@
 import axiosClient from "./axiosClient";
 
-export const getAllProducts = async () => {
+export const getAllProducts = async (params = {}) => {
     try {
-        const response = await axiosClient.get("/products");
+        const response = await axiosClient.get("/products", { params });
         return response;
     } catch (error) {
         console.error("Error fetching all products:", error);
