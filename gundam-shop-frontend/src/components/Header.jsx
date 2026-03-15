@@ -3,28 +3,59 @@ import { useState } from "react";
 import { IoCartOutline, IoHeartOutline, IoPersonOutline, IoSearchOutline } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../api/authApi";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase";
+import { getUserByFirebaseId } from "../api/userApi";
 
 const Header = () => {
     const [avatar, setAvatar] = useState(null);
     const [isShow, setIsShow] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [currentUser, setCurrentUser] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchData = async () => {
-            const avatarTemp = localStorage.getItem('avatar');
-            setAvatar(avatarTemp);
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
+            setCurrentUser(user);
+            if (user) {
+                fetchAvatar();
+                await fetchData(user.uid);
+            } else {
+                setAvatar(null);
+                setIsAdmin(false);
+            }
+        });
+
+        return () => unsubscribe();
+    }, []);
+
+    const fetchAvatar = () => {
+        const avatarTemp = localStorage.getItem('avatar');
+        setAvatar(avatarTemp);
+    };
+
+    const fetchData = async (uid) => {
+        try {
+            const response = await getUserByFirebaseId(uid);
+            const userData = response;
+            console.log('ress', response)
+            setIsAdmin(userData.role === 'admin');
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+            setIsAdmin(false);
         }
-        fetchData();
-    }, [])
+    };
+
     const handleLogout = async () => {
         try {
             await logout();
             setAvatar(null);
+            setCurrentUser(null);
             navigate('/');
         } catch (error) {
-
+            console.error('Logout error:', error);
         }
-    }
+    };
     return (
         <nav className="flex items-center justify-between px-10 py-6 border-b border-white/5 bg-[#060608]/5 backdrop-blur-md sticky top-0 z-50">
             <Link to="/" className="flex items-center space-x-4 cursor-pointer">
@@ -88,7 +119,11 @@ const Header = () => {
                                         <div className="px-4 py-2 hover:bg-white/10 cursor-pointer transition-colors">
                                             <Link to="/profile" className="text-white text-sm">Xem hồ sơ</Link>
                                         </div>
-
+                                        {isAdmin && (
+                                            <div className="px-4 py-2 hover:bg-white/10 cursor-pointer transition-colors">
+                                                <Link to="/admin" className="text-white text-sm">Trang Admin</Link>
+                                            </div>
+                                        )}
                                         <div
                                             onClick={handleLogout}
                                             className="px-4 py-2 hover:bg-white/10 cursor-pointer transition-colors text-white text-sm"

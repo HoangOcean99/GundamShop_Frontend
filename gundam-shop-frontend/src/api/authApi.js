@@ -12,7 +12,12 @@ export const loginByFirebase = async () => {
 
         const token = await user.getIdToken();
 
+        localStorage.setItem("token", token);
         localStorage.setItem("avatar", user.photoURL);
+
+        if (user.uid) {
+            localStorage.setItem("firebaseId", user.uid);
+        }
 
         const res = await axiosClient.post(
             "/users/login",
@@ -23,7 +28,6 @@ export const loginByFirebase = async () => {
                 },
             }
         );
-
         return res;
     } catch (error) {
         console.error("Login error:", error);
