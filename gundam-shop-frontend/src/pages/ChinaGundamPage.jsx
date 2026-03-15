@@ -1,8 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { IoChevronForwardOutline } from "react-icons/io5";
+import React, { useEffect, useMemo, useState, useRef } from "react";
+import { Link } from "react-router-dom";
+import { IoChevronForwardOutline, IoChevronBackOutline } from "react-icons/io5";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { getAllProducts } from "../api/productApi";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const subCategoryOrder = ["1/144", "1/100", "1/60", "Original Mecha"];
 
@@ -10,12 +12,17 @@ const ChinaGundamPage = () => {
   const [productsBySubCategory, setProductsBySubCategory] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentPages, setCurrentPages] = useState({});
+  const sectionRefs = useRef({});
+
+  const ITEMS_PER_PAGE = 10;
 
   const categories = useMemo(
     () =>
-      subCategoryOrder.map((name) => ({
+      subCategoryOrder.map((name, idx) => ({
         name,
         count: productsBySubCategory[name]?.length ?? 0,
+        idx
       })),
     [productsBySubCategory],
   );
@@ -60,6 +67,12 @@ const ChinaGundamPage = () => {
         });
 
         setProductsBySubCategory(grouped);
+        
+        const initialPages = {};
+        subCategoryOrder.forEach((_, idx) => {
+          initialPages[idx] = 1;
+        });
+        setCurrentPages(initialPages);
       } catch (err) {
         console.error("Failed to load Gundam Trung Quốc products", err);
         if (isCurrent) setError(err);
@@ -74,16 +87,31 @@ const ChinaGundamPage = () => {
     };
   }, []);
 
+  const scrollToSection = (idx) => {
+    const element = sectionRefs.current[idx];
+    if (element) {
+      const offset = 100;
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = element.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+  };
+
   return (
     <div
-      className="w-full bg-fixed bg-cover bg-center min-h-screen relative"
+      className="w-full bg-fixed bg-cover bg-center min-h-screen relative flex flex-col"
       style={{ backgroundImage: "url('../src/assets/cnGundamBG.png')" }}
     >
-      {/* Dark overlay for better content contrast */}
       <div className="absolute inset-0 bg-black/20 z-0"></div>
 
       <Header />
-      <div className="max-w-[1400px] mx-auto px-10 pt-16 pb-6 relative z-20 text-left">
+      <div className="max-w-[1400px] mx-auto w-full px-10 pt-16 pb-6 relative z-20 text-left">
         <h1 className="text-5xl font-black italic tracking-wider drop-shadow-[0_0_30px_rgba(255,50,0,0.5)] text-white uppercase">
           GUNDAM TRUNG QUỐC
         </h1>
@@ -92,160 +120,126 @@ const ChinaGundamPage = () => {
         </p>
       </div>
 
-      {/* --- MAIN SECTION --- */}
-      <div className="max-w-[1400px] mx-auto grid grid-cols-[280px_1fr] gap-10 px-10 py-12 relative z-20">
-        {/* --- SIDEBAR --- */}
+      <div className="max-w-[1400px] mx-auto w-full grid grid-cols-[280px_1fr] gap-10 px-10 py-12 relative z-20 flex-grow">
         <aside className="space-y-8">
-          <div className="bg-[#0A0A0E]/30 backdrop-blur-xl border border-white/10 p-6 rounded-sm shadow-2xl relative overflow-hidden group">
+          <div className="bg-[#0A0A0E]/30 backdrop-blur-xl border border-white/10 p-6 rounded-sm shadow-2xl relative overflow-hidden group sticky top-24">
             <div className="absolute top-0 left-0 w-1 h-full bg-red-900/40 shadow-[0_0_15px_rgba(255,0,0,0.2)]"></div>
 
             <div className="flex items-center space-x-3 mb-8 pb-4 border-b border-white/5">
               <div className="w-8 h-8 bg-red-900/20 rounded flex items-center justify-center border border-red-800/20">
-                <img
-                  src="../src/assets/logo.png"
-                  alt="L"
-                  className="w-5 h-5 object-contain mix-blend-screen"
-                />
+                <img src="../src/assets/logo.png" alt="L" className="w-5 h-5 object-contain mix-blend-screen" />
               </div>
-              <h3 className="font-black italic text-sm tracking-widest text-white">
-                TỈ LỆ GUNDAM
-              </h3>
+              <h3 className="font-black italic text-sm tracking-widest text-white uppercase">TỈ LỆ GUNDAM</h3>
             </div>
 
             <nav className="space-y-2">
-              {categories.map((cat, idx) => (
+              {categories.map((cat) => (
                 <div
-                  key={idx}
-                  className={`flex items-center justify-between p-3 rounded-sm cursor-pointer transition-all duration-300 ${
-                    idx === 0
-                      ? "bg-red-900/20 shadow-[inset_0_0_10px_rgba(255,0,0,0.05)] border border-red-500/20"
-                      : "hover:bg-white/5 text-gray-400 hover:text-white"
-                  }`}
+                  key={cat.idx}
+                  onClick={() => scrollToSection(cat.idx)}
+                  className="flex items-center justify-between p-3 rounded-sm cursor-pointer transition-all duration-300 hover:bg-white/5 group/nav"
                 >
-                  <span className="font-extrabold text-[13px] tracking-wide uppercase">
+                  <span className="font-extrabold text-[13px] tracking-wide uppercase text-gray-400 group-hover:text-white transition-colors">
                     {cat.name}
                   </span>
                   <div className="flex items-center">
-                    <span className="text-[10px] mr-2 opacity-40 font-bold">
+                    <span className="text-[10px] mr-2 opacity-40 font-bold group-hover:opacity-100 transition-opacity">
                       {cat.count}
                     </span>
-                    <IoChevronForwardOutline
-                      className={`w-3.5 h-3.5 ${
-                        idx === 0 ? "text-red-500" : "opacity-30"
-                      }`}
-                    />
+                    <IoChevronForwardOutline className="w-3.5 h-3.5 text-red-500 opacity-30 group-hover:opacity-100 transition-all group-hover:translate-x-1" />
                   </div>
                 </div>
               ))}
             </nav>
-
-            <div className="mt-10 space-y-4">
-              <div className="flex items-center text-[11px] text-gray-300 font-bold">
-                <span className="text-red-700/80 mr-3 text-xs">✔</span> Mẫu mã
-                đa dạng
-              </div>
-              <div className="flex items-center text-[11px] text-gray-300 font-bold">
-                <span className="text-red-700/80 mr-3 text-xs">✔</span> Giá cả
-                hợp lý
-              </div>
-              <div className="flex items-center text-[11px] text-gray-300 font-bold">
-                <span className="text-red-700/80 mr-3 text-xs">✔</span> Dễ dàng
-                lắp ráp
-              </div>
-            </div>
           </div>
         </aside>
 
-        {/* --- PRODUCTS CONTENT --- */}
-        <main className="space-y-12">
-          {loading && (
-            <div className="text-center text-gray-200">
-              Đang tải sản phẩm...
-            </div>
-          )}
-          {error && (
-            <div className="text-center text-red-300">
-              Không thể tải sản phẩm. Vui lòng thử lại.
-            </div>
-          )}
+        <main className="space-y-16">
+          {loading && <div className="text-center py-20"><LoadingSpinner /></div>}
+          {error && <div className="text-center text-red-300 py-20">Không thể tải sản phẩm. Vui lòng thử lại.</div>}
 
-          {!loading &&
-            !error &&
-            sections.map((section, sIdx) => (
+          {!loading && !error && sections.map((section, sIdx) => {
+            const page = currentPages[sIdx] || 1;
+            const startIdx = (page - 1) * ITEMS_PER_PAGE;
+            const paginatedProducts = section.products.slice(startIdx, startIdx + ITEMS_PER_PAGE);
+            const totalPages = Math.ceil(section.products.length / ITEMS_PER_PAGE);
+
+            return (
               <section
                 key={sIdx}
-                className="space-y-6 bg-[#0A0A0E]/40 backdrop-blur-lg border border-white/5 p-6 rounded-sm shadow-xl relative overflow-hidden group"
+                ref={el => sectionRefs.current[sIdx] = el}
+                className="space-y-8 bg-[#0A0A0E]/40 backdrop-blur-lg border border-white/5 p-8 rounded-sm shadow-xl relative overflow-hidden"
               >
                 <div className="absolute top-0 right-0 w-24 h-24 bg-red-900/5 blur-[60px]"></div>
 
-                <div className="flex items-center justify-between border-b border-white/10 pb-4 relative z-10">
-                  <div className="flex items-center space-x-3">
-                    <span className="text-red-800/60 text-xl">
-                      {section.icon}
-                    </span>
-                    <h2 className="text-xl font-black italic flex items-center tracking-widest text-white uppercase">
-                      {section.title}
-                    </h2>
-                  </div>
-                  <div className="flex space-x-2 text-[10px] font-bold text-gray-500">
-                    <span className="hover:text-red-500 cursor-pointer transition uppercase">
-                      1
-                    </span>
-                    <span className="opacity-30">|</span>
-                    <span className="hover:text-red-500 cursor-pointer transition uppercase">
-                      2
-                    </span>
-                    <span className="opacity-30">|</span>
-                    <span className="hover:text-red-500 cursor-pointer transition uppercase">
-                      3
-                    </span>
-                    <IoChevronForwardOutline className="w-3 h-3 ml-1 cursor-pointer hover:text-red-500 transition-colors" />
-                  </div>
+                <div className="flex items-center justify-between border-b border-white/10 pb-6 relative z-10">
+                  <h2 className="text-2xl font-black italic flex items-center tracking-widest text-white uppercase">
+                    {section.title}
+                  </h2>
+                  
+                  {totalPages > 1 && (
+                    <div className="flex items-center space-x-4">
+                      <button 
+                         disabled={page === 1}
+                         onClick={() => setCurrentPages(prev => ({ ...prev, [sIdx]: page - 1 }))}
+                         className="p-1 border border-white/10 rounded hover:bg-white/5 disabled:opacity-20 transition-all"
+                      >
+                        <IoChevronBackOutline className="text-white" />
+                      </button>
+                      <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest">Trang {page} / {totalPages}</span>
+                      <button 
+                         disabled={page === totalPages}
+                         onClick={() => setCurrentPages(prev => ({ ...prev, [sIdx]: page + 1 }))}
+                         className="p-1 border border-white/10 rounded hover:bg-white/5 disabled:opacity-20 transition-all"
+                      >
+                        <IoChevronForwardOutline className="text-white" />
+                      </button>
+                    </div>
+                  )}
                 </div>
 
                 {section.products.length === 0 ? (
-                  <div className="text-center text-gray-400">
-                    Chưa có sản phẩm trong danh mục này.
-                  </div>
+                  <div className="text-center text-gray-500 py-10 italic">Chưa có sản phẩm trong danh mục này.</div>
                 ) : (
-                  <div className="grid grid-cols-4 lg:grid-cols-5 gap-5">
-                    {section.products.map((p, pIdx) => (
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                    {paginatedProducts.map((p, pIdx) => (
                       <div
                         key={p._id || pIdx}
-                        className="bg-[#0A0A0E]/60 backdrop-blur-md border border-white/10 p-3 rounded-sm group transition-all duration-300 hover:border-red-900/40 hover:-translate-y-1 relative shadow-lg"
+                        className="bg-[#0A0A0E]/60 backdrop-blur-md border border-white/10 p-4 rounded-sm group transition-all duration-300 hover:border-red-900/40 hover:-translate-y-1 relative shadow-lg"
                       >
                         <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-red-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-
-                        <div className="aspect-square bg-[#111] overflow-hidden mb-3 relative rounded-sm shadow-inner">
+                        <div className="aspect-square bg-[#111] overflow-hidden mb-4 relative rounded-sm shadow-inner flex items-center justify-center">
                           <img
-                            src={
-                              p.images?.[0] ||
-                              "https://via.placeholder.com/300x300"
-                            }
+                            src={p.images?.[0] || "https://via.placeholder.com/300x300"}
                             alt={p.name}
-                            className="w-full h-full object-cover group-hover:scale-110 transition duration-700 opacity-80 group-hover:opacity-100"
+                            className="max-w-[90%] max-h-[90%] object-contain group-hover:scale-110 transition duration-700 opacity-80 group-hover:opacity-100"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                          {p.stock === 0 && (
+                            <div className="absolute top-2 right-2 bg-red-600 text-[8px] font-black text-white px-2 py-0.5 rounded-sm uppercase tracking-tighter italic">Hết hàng</div>
+                          )}
                         </div>
-                        <div className="space-y-3">
-                          <div>
-                            <h4 className="text-[11px] font-bold text-gray-200 line-clamp-1 group-hover:text-red-400 transition-colors uppercase tracking-tight">
-                              {p.name}
-                            </h4>
-                            <p className="text-[11px] font-bold text-gray-400 mt-1">
-                              {formatPrice(p.price)}
-                            </p>
+                        <div className="space-y-4">
+                          <h4 className="text-[11px] font-bold text-gray-200 line-clamp-2 h-8 group-hover:text-red-400 transition-colors uppercase tracking-tight leading-tight">
+                            {p.name}
+                          </h4>
+                          <div className="flex flex-col space-y-3">
+                            <span className="text-xs font-black text-white italic tracking-widest">{formatPrice(p.price)}</span>
+                            <Link
+                              to={`/product/${p._id}`}
+                              className="w-full py-2 bg-red-900/30 border border-red-800/30 text-[9px] font-black uppercase rounded-sm hover:bg-red-800 transition-all shadow-md group-hover:shadow-[0_0_15px_rgba(255,0,0,0.1)] flex items-center justify-center text-white"
+                            >
+                              CHI TIẾT ›
+                            </Link>
                           </div>
-                          <button className="w-full py-1.5 bg-red-900/30 border border-red-800/30 text-[9px] font-black uppercase rounded-sm hover:bg-red-800 transition-all shadow-md group-hover:shadow-[0_0_15px_rgba(255,0,0,0.1)]">
-                            XEM NGAY ›
-                          </button>
                         </div>
                       </div>
                     ))}
                   </div>
                 )}
               </section>
-            ))}
+            );
+          })}
         </main>
       </div>
 

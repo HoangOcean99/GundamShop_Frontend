@@ -1,4 +1,5 @@
 import axios from "axios";
+import { auth } from "../../firebase";
 
 const axiosClient = axios.create({
   baseURL: "http://localhost:3000",
@@ -8,8 +9,18 @@ const axiosClient = axios.create({
 });
 
 axiosClient.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem("token");
+  async (config) => {
+    let token = localStorage.getItem("token");
+
+    // If token is missing but user is logged in via Firebase, fetch it
+    if (!token && auth.currentUser) {
+        try {
+            token = await auth.currentUser.getIdToken(true);
+            localStorage.setItem("token", token);
+        } catch (err) {
+            console.error("Failed to get Firebase token", err);
+        }
+    }
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
