@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   IoSearchOutline,
@@ -14,13 +14,69 @@ import {
   IoLogOutOutline,
 } from "react-icons/io5";
 import { FaFacebook, FaYoutube } from "react-icons/fa";
+import Header from "../components/Header";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase";
+import { getUserByFirebaseId, updateUser } from "../api/userApi";
+import { getOrdersByUser } from "../api/orderApi";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const ProfilePage = () => {
   const [formData, setFormData] = useState({
-    name: "Nguyễn Văn A",
-    phone: "0912 345 678",
-    address: "Đại học FPT, Hòa Lạc, Thạch Thất, Hà Nội",
+    name: "",
+    phone: "",
+    address: "",
   });
+  const [userId, setUserId] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [view, setView] = useState('profile');
+  const [orders, setOrders] = useState([]);
+  const [loadingOrders, setLoadingOrders] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const response = await getUserByFirebaseId(user.uid);
+        const userData = response;
+
+        setUserId(userData._id || userData.id);
+        setFormData({
+          name: userData.name || "",
+          phone: userData.phone || "",
+          address: userData.address || "",
+        });
+      } catch (error) {
+        console.error("Error fetching profile data:", error);
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    if (view === 'orders') {
+      fetchOrders();
+    }
+  }, [view]);
+
+  const fetchOrders = async () => {
+    setLoadingOrders(true);
+    try {
+      const response = await getOrdersByUser();
+      setOrders(response);
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+    } finally {
+      setLoadingOrders(false);
+    }
+  };
 
   const handleChange = (e) => {
     setFormData({
@@ -29,91 +85,34 @@ const ProfilePage = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Thông tin đã được cập nhật!");
-  };
 
+    if (!userId) {
+      console.warn("Cannot update profile because userId is missing.");
+      return;
+    }
+
+    try {
+      await updateUser(userId, formData);
+      alert("Thông tin đã được cập nhật!");
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      alert("Cập nhật thất bại. Vui lòng thử lại sau.");
+    }
+  };
+  if (loading) return <div className="relative flex-1">
+    {loading && <LoadingSpinner />}
+  </div>
   return (
     <div
       className="w-full bg-fixed bg-cover bg-center min-h-screen relative flex flex-col"
       style={{ backgroundImage: "url('../src/assets/jpGundamBG.png')" }}
     >
-      {/* Dark overlay for better content contrast */}
-      <div className="absolute inset-0 bg-black/60 z-0"></div>
+     <div className="absolute inset-0 bg-black/60 z-0"></div>
 
       {/* --- NAVIGATION BAR --- */}
-      <nav className="flex items-center justify-between px-10 py-6 border-b border-white/5 bg-[#060608]/20 backdrop-blur-md sticky top-0 z-50">
-        <Link to="/" className="flex items-center space-x-4 cursor-pointer">
-          <img
-            src="../src/assets/logo.png"
-            alt="Logo"
-            className="w-12 h-12 object-contain mix-blend-screen"
-          />
-          <span className="font-black italic text-3xl tracking-tighter drop-shadow-lg text-white">
-            GUNDAM STORE
-          </span>
-        </Link>
-
-        <div className="hidden md:flex space-x-8 text-[11px] font-bold uppercase tracking-[0.2em] text-gray-300">
-          <Link
-            to="/"
-            className="hover:text-blue-500 transition-colors drop-shadow-sm border-b-2 border-transparent hover:border-blue-500 pb-1"
-          >
-            Trang chủ
-          </Link>
-          <a
-            href="#"
-            className="hover:text-blue-500 transition-colors drop-shadow-sm border-b-2 border-transparent hover:border-blue-500 pb-1"
-          >
-            Sản phẩm
-          </a>
-          <a
-            href="#"
-            className="hover:text-blue-500 transition-colors drop-shadow-sm border-b-2 border-transparent hover:border-blue-500 pb-1"
-          >
-            Tin tức
-          </a>
-          <a
-            href="#"
-            className="hover:text-blue-500 transition-colors drop-shadow-sm border-b-2 border-transparent hover:border-blue-500 pb-1"
-          >
-            Hướng dẫn
-          </a>
-          <a
-            href="#"
-            className="hover:text-blue-500 transition-colors drop-shadow-sm border-b-2 border-transparent hover:border-blue-500 pb-1"
-          >
-            Liên hệ
-          </a>
-        </div>
-
-        <div className="flex items-center space-x-6">
-          <div className="flex items-center bg-white/5 hover:bg-white/10 transition-colors px-4 py-1.5 rounded-full border border-white/10 focus-within:border-white/30 focus-within:bg-white/10">
-            <input
-              type="text"
-              placeholder="Search"
-              className="bg-transparent text-[11px] focus:outline-none w-32 placeholder-gray-500 text-gray-200"
-            />
-            <IoSearchOutline className="text-gray-400 w-4 h-4 ml-2 cursor-pointer hover:text-white transition" />
-          </div>
-
-          <div className="flex items-center space-x-4 text-gray-400">
-            <Link to="/profile" className="text-blue-500 relative">
-              <IoPersonOutline className="w-5 h-5 cursor-pointer" />
-              <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 bg-blue-500 rounded-full shadow-[0_0_10px_rgba(0,102,255,0.8)]"></div>
-            </Link>
-            <IoHeartOutline className="w-5 h-5 cursor-pointer hover:text-white transition" />
-            <Link
-              to="/cart"
-              className="relative cursor-pointer hover:text-white transition"
-            >
-              <IoCartOutline className="w-5 h-5" />
-              <span className="absolute -top-1 -right-1 bg-red-600 w-2.5 h-2.5 rounded-full border border-black shadow-[0_0_10px_rgba(255,0,0,0.8)]"></span>
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <Header />
 
       {/* --- PAGE HEADER --- */}
       <div className="max-w-[1400px] mx-auto w-full px-10 pt-16 pb-6 relative z-20 text-left">
@@ -147,116 +146,144 @@ const ProfilePage = () => {
             </div>
 
             <nav className="space-y-2">
-              <Link
-                to="/profile"
-                className="flex items-center justify-between p-3 rounded-sm bg-blue-600/20 shadow-[inset_0_0_10px_rgba(0,102,255,0.1)] transition-all"
+              <div
+                onClick={() => setView('profile')}
+                className={`flex items-center justify-between p-3 rounded-sm cursor-pointer transition-all ${
+                  view === 'profile'
+                    ? 'bg-blue-600/20 shadow-[inset_0_0_10px_rgba(0,102,255,0.1)] text-blue-400'
+                    : 'text-gray-400 hover:bg-white/5 hover:text-white'
+                }`}
               >
-                <div className="flex items-center text-blue-400">
+                <div className="flex items-center">
                   <IoPersonOutline className="w-4 h-4 mr-3" />
                   <span className="font-extrabold text-xs tracking-wide uppercase">
                     Thông tin cá nhân
                   </span>
                 </div>
-                <IoChevronForwardOutline className="w-3.5 h-3.5 text-blue-500" />
-              </Link>
+                {view === 'profile' && <IoChevronForwardOutline className="w-3.5 h-3.5 text-blue-500" />}
+              </div>
 
-              <div className="flex items-center justify-between p-3 rounded-sm cursor-pointer hover:bg-white/5 text-gray-400 transition-all">
+              <div
+                onClick={() => setView('orders')}
+                className={`flex items-center justify-between p-3 rounded-sm cursor-pointer transition-all ${
+                  view === 'orders'
+                    ? 'bg-blue-600/20 shadow-[inset_0_0_10px_rgba(0,102,255,0.1)] text-blue-400'
+                    : 'text-gray-400 hover:bg-white/5 hover:text-white'
+                }`}
+              >
                 <div className="flex items-center">
                   <IoListOutline className="w-4 h-4 mr-3" />
                   <span className="font-extrabold text-xs tracking-wide uppercase">
                     Đơn hàng của tôi
                   </span>
                 </div>
-              </div>
-
-              <div className="flex items-center justify-between p-3 rounded-sm cursor-pointer hover:bg-white/5 text-gray-400 transition-all">
-                <div className="flex items-center">
-                  <IoSettingsOutline className="w-4 h-4 mr-3" />
-                  <span className="font-extrabold text-xs tracking-wide uppercase">
-                    Cài đặt bảo mật
-                  </span>
-                </div>
-              </div>
-
-              <div className="mt-8 pt-6 border-t border-white/5">
-                <Link
-                  to="/login"
-                  className="flex items-center justify-between p-3 rounded-sm cursor-pointer hover:bg-red-900/20 text-red-500/80 hover:text-red-400 transition-all"
-                >
-                  <div className="flex items-center">
-                    <IoLogOutOutline className="w-4 h-4 mr-3" />
-                    <span className="font-extrabold text-xs tracking-wide uppercase">
-                      Đăng xuất
-                    </span>
-                  </div>
-                </Link>
+                {view === 'orders' && <IoChevronForwardOutline className="w-3.5 h-3.5 text-blue-500" />}
               </div>
             </nav>
           </div>
         </aside>
 
-        {/* Profile Edit Form */}
+        {/* Profile Edit Form or Orders */}
         <section>
-          <div className="bg-[#0A0A0E]/60 backdrop-blur-xl border border-white/10 p-8 rounded-sm shadow-2xl relative overflow-hidden group">
-            <h2 className="text-xl font-black italic tracking-widest text-white mb-8 border-b border-white/5 pb-4 flex items-center">
-              THÔNG TIN CÁ NHÂN
-            </h2>
+          {view === 'profile' ? (
+            <div className="bg-[#0A0A0E]/60 backdrop-blur-xl border border-white/10 p-8 rounded-sm shadow-2xl relative overflow-hidden group">
+              <h2 className="text-xl font-black italic tracking-widest text-white mb-8 border-b border-white/5 pb-4 flex items-center">
+                THÔNG TIN CÁ NHÂN
+              </h2>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-bold text-blue-400 uppercase tracking-widest">
+                      Họ và tên
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      className="w-full bg-black/40 border border-white/10 p-3 rounded-sm text-sm text-white focus:outline-none focus:border-blue-500/50 focus:shadow-[0_0_15px_rgba(0,102,255,0.2)] transition-all"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-bold text-blue-400 uppercase tracking-widest">
+                      Số điện thoại
+                    </label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      className="w-full bg-black/40 border border-white/10 p-3 rounded-sm text-sm text-white focus:outline-none focus:border-blue-500/50 focus:shadow-[0_0_15px_rgba(0,102,255,0.2)] transition-all"
+                    />
+                  </div>
+                </div>
+
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold text-blue-400 uppercase tracking-widest">
-                    Họ và tên
+                    Địa chỉ giao hàng
                   </label>
                   <input
                     type="text"
-                    name="name"
-                    value={formData.name}
+                    name="address"
+                    value={formData.address}
                     onChange={handleChange}
                     className="w-full bg-black/40 border border-white/10 p-3 rounded-sm text-sm text-white focus:outline-none focus:border-blue-500/50 focus:shadow-[0_0_15px_rgba(0,102,255,0.2)] transition-all"
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-blue-400 uppercase tracking-widest">
-                    Số điện thoại
-                  </label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="w-full bg-black/40 border border-white/10 p-3 rounded-sm text-sm text-white focus:outline-none focus:border-blue-500/50 focus:shadow-[0_0_15px_rgba(0,102,255,0.2)] transition-all"
-                  />
+                <div className="pt-6 border-t border-white/5 flex justify-end">
+                  <button
+                    type="submit"
+                    className="relative group overflow-hidden bg-blue-600 text-white font-black italic tracking-widest px-8 py-3 text-xs rounded-sm shadow-[0_0_15px_rgba(0,102,255,0.4)] hover:shadow-[0_0_25px_rgba(0,102,255,0.6)] transition-all"
+                  >
+                    <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
+                    <span className="relative z-10 flex items-center justify-center">
+                      LƯU THAY ĐỔI
+                    </span>
+                  </button>
                 </div>
-              </div>
+              </form>
+            </div>
+          ) : (
+            <div className="min-h-100 bg-[#0A0A0E]/60 backdrop-blur-xl border border-white/10 p-8 rounded-sm shadow-2xl relative overflow-hidden group">
+              <h2 className="text-xl font-black italic tracking-widest text-white mb-8 border-b border-white/5 pb-4 flex items-center">
+                ĐƠN HÀNG CỦA TÔI
+              </h2>
 
-              <div className="space-y-2">
-                <label className="text-[10px] font-bold text-blue-400 uppercase tracking-widest">
-                  Địa chỉ giao hàng
-                </label>
-                <input
-                  type="text"
-                  name="address"
-                  value={formData.address}
-                  onChange={handleChange}
-                  className="w-full bg-black/40 border border-white/10 p-3 rounded-sm text-sm text-white focus:outline-none focus:border-blue-500/50 focus:shadow-[0_0_15px_rgba(0,102,255,0.2)] transition-all"
-                />
-              </div>
-
-              <div className="pt-6 border-t border-white/5 flex justify-end">
-                <button
-                  type="submit"
-                  className="relative group overflow-hidden bg-blue-600 text-white font-black italic tracking-widest px-8 py-3 text-xs rounded-sm shadow-[0_0_15px_rgba(0,102,255,0.4)] hover:shadow-[0_0_25px_rgba(0,102,255,0.6)] transition-all"
-                >
-                  <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
-                  <span className="relative z-10 flex items-center justify-center">
-                    LƯU THAY ĐỔI
-                  </span>
-                </button>
-              </div>
-            </form>
-          </div>
+              {loadingOrders ? (
+                <div className="text-white">Đang tải...</div>
+              ) : orders.length === 0 ? (
+                <div className="text-gray-400">Bạn chưa có đơn hàng nào.</div>
+              ) : (
+                <div className="space-y-4">
+                  {orders.map((order) => (
+                    <div key={order._id} className="bg-black/20 p-4 rounded-sm border border-white/5">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-white font-bold">Đơn hàng #{order._id.slice(-8)}</span>
+                        <span className="text-blue-400">{order.status}</span>
+                      </div>
+                      <div className="text-gray-300 text-sm">
+                        Tổng tiền: {order.totalAmount} VND
+                      </div>
+                      <div className="text-gray-400 text-xs">
+                        Ngày đặt: {new Date(order.createdAt).toLocaleDateString()}
+                      </div>
+                      <div className="mt-2">
+                        <span className="text-gray-300 text-sm">Sản phẩm:</span>
+                        <ul className="text-gray-400 text-xs ml-4">
+                          {order.items.map((item, index) => (
+                            <li key={index}>{item.product.name} x {item.quantity}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
         </section>
       </main>
 

@@ -49,3 +49,13 @@ export const deleteOrder = async (id) => {
         throw error;
     }
 };
+
+export const getOrdersByUser = async () => {
+    try {
+        const response = await axiosClient.get("/orders/user/orders");
+        return response;
+    } catch (error) {
+        console.error("Error fetching orders by user:", error);
+        throw error;
+    }
+};
