@@ -7,12 +7,16 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase";
 import { getUserByFirebaseId } from "../api/userApi";
 import { getAllCarts, updateCart } from "../api/cartApi";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { getProductById } from "../api/productApi";
 
 const CartPage = () => {
   const [cartId, setCartId] = useState(null);
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
+  const navigate = useNavigate();
 
   const shipping = 50000;
 
@@ -59,8 +63,28 @@ const CartPage = () => {
 
   const updateItemQuantity = async (itemId, quantity) => {
     if (!cartId) return;
+    
+    const item = cartItems.find((i) => (i._id || i.id) === itemId);
+    if (!item) return;
+
+    if (quantity > item.quantity) {
+      // Validation against stock only if increasing
+      try {
+        const product = await getProductById(item.product._id || item.product);
+        if (quantity > product.stock) {
+          toast.error(
+            `Vượt quá số lượng trong kho hàng (Tối đa: ${product.stock}). Nếu bạn muốn mua thêm sản phẩm, hãy liên hệ với chúng tôi!`,
+            { duration: 4000 }
+          );
+          return;
+        }
+      } catch (err) {
+        console.error("Stock check failed", err);
+      }
+    }
+
     const nextItems = cartItems.map((item) =>
-      item._id === itemId ? { ...item, quantity } : item,
+      (item._id || item.id) === itemId ? { ...item, quantity } : item,
     );
 
     setCartItems(nextItems);
@@ -70,6 +94,7 @@ const CartPage = () => {
       await updateCart(cartId, { items: nextItems });
     } catch (error) {
       console.error("Error updating cart item:", error);
+      toast.error("Lỗi cập nhật giỏ hàng.");
     } finally {
       setUpdating(false);
     }
@@ -296,7 +321,11 @@ const CartPage = () => {
               </div>
             </div>
 
-            <button className="w-full relative group overflow-hidden bg-blue-600 text-white font-black italic tracking-widest py-4 text-sm rounded-sm shadow-[0_0_20px_rgba(0,102,255,0.4)] hover:shadow-[0_0_30px_rgba(0,102,255,0.6)] transition-all">
+            <button 
+              onClick={() => navigate("/checkout")}
+              disabled={cartItems.length === 0 || updating}
+              className="w-full relative group overflow-hidden bg-blue-600 text-white font-black italic tracking-widest py-4 text-sm rounded-sm shadow-[0_0_20px_rgba(0,102,255,0.4)] hover:shadow-[0_0_30px_rgba(0,102,255,0.6)] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            >
               <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
               <span className="relative z-10 w-full flex items-center justify-center">
                 TIẾN HÀNH THANH TOÁN{" "}
