@@ -305,7 +305,7 @@ const CheckoutPage = () => {
               <button
                 onClick={handlePlaceOrder}
                 disabled={submitting}
-                className="w-full mt-8 bg-blue-600 text-white font-black italic uppercase tracking-[0.2em] py-4 text-xs rounded-sm shadow-[0_10px_30px_rgba(0,102,255,0.3)] hover:brightness-110 transition-all flex items-center justify-center space-x-2 disabled:opacity-50"
+                className="w-full mt-8 bg-blue-600 text-white font-black italic uppercase tracking-[0.2em] py-4 text-xs rounded-sm shadow-[0_10px_30px_rgba(0,102,255,0.3)] hover:brightness-110 transition-all flex items-center justify-center space-x-2 disabled:opacity-50 cursor-pointer"
               >
                 {submitting ? (
                   <LoadingSpinner size="sm" />

@@ -17,7 +17,7 @@ const LoginPage = () => {
   return (
     <div
       className="w-full h-screen bg-fixed bg-cover bg-center relative flex items-center justify-center"
-      style={{ backgroundImage: "url('../src/assets/jpGundamBG.png')" }}
+      style={{ backgroundImage: "url('/jpGundamBG.png')" }}
     >
       <div className="absolute inset-0 bg-[#050B14]/70 backdrop-blur-sm z-0"></div>
 
@@ -37,9 +37,9 @@ const LoginPage = () => {
         
         <div className="w-16 h-16 bg-blue-600/20 rounded mb-6 flex items-center justify-center shadow-[0_0_20px_rgba(0,102,255,0.2)]">
           <img
-            src="../src/assets/logo.png"
+            src="/logo.png"
             alt="Logo"
-            className="w-10 h-10 object-contain mix-blend-screen"
+            className="w-20 h-20 object-contain mix-blend-screen"
           />
         </div>
 
@@ -55,7 +55,7 @@ const LoginPage = () => {
           <FaGoogle className="w-5 h-5 mr-3 text-red-500 relative z-10" />
           <span 
           onClick={handleLogin}
-          className="text-sm font-black uppercase tracking-widest text-white relative z-10"
+          className="text-sm font-black uppercase tracking-widest text-white relative z-10 cursor-pointer"
           >
             Đăng nhập bằng Google
           </span>

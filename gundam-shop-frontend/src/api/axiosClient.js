@@ -3,6 +3,7 @@ import { auth } from "../../firebase";
 
 const axiosClient = axios.create({
   baseURL: "https://gundamshop-backend.onrender.com",
+    // baseURL: "http://localhost:3000",
   headers: {
     "Content-Type": "application/json",
   },

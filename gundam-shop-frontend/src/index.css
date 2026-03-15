@@ -8,7 +8,7 @@
 }
 
 body {
-  background-image: url('../src/assets/BackgroudBoth.jpg');
+  background-image: url('/BackgroudBoth.jpg');
   color: white;
   font-family: 'Inter', sans-serif;
 }

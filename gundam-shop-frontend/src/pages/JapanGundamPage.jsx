@@ -61,7 +61,7 @@ const JapanGundamPage = () => {
         }));
 
         setSections(updatedSections);
-        
+
         const initialPages = {};
         updatedSections.forEach((_, idx) => {
           initialPages[idx] = 1;
@@ -96,11 +96,12 @@ const JapanGundamPage = () => {
       });
     }
   };
+  if (loading) return <div className="text-center text-gray-200 py-20"><LoadingSpinner /></div>
 
   return (
     <div
       className="w-full bg-fixed bg-cover bg-center min-h-screen relative flex flex-col"
-      style={{ backgroundImage: "url('../src/assets/jpGundamBG.png')" }}
+      style={{ backgroundImage: "url('/jpGundamBG.png')" }}
     >
       <div className="absolute inset-0 bg-black/20 z-0"></div>
       <Header />
@@ -120,7 +121,7 @@ const JapanGundamPage = () => {
             <div className="absolute top-0 left-0 w-1 h-full bg-blue-900/40 shadow-[0_0_10px_rgba(0,102,255,0.2)]"></div>
             <div className="flex items-center space-x-3 mb-8 pb-4 border-b border-white/5">
               <div className="w-8 h-8 bg-blue-600/20 rounded flex items-center justify-center">
-                <img src="../src/assets/logo.png" alt="L" className="w-5 h-5 object-contain mix-blend-screen" />
+                <img src="/logo.png" alt="L" className="w-5 h-5 object-contain mix-blend-screen" />
               </div>
               <h3 className="font-black italic text-sm tracking-widest text-white">DÒNG GUNDAM</h3>
             </div>
@@ -148,7 +149,6 @@ const JapanGundamPage = () => {
         </aside>
 
         <main className="space-y-16">
-          {loading && <div className="text-center text-gray-200 py-20"><LoadingSpinner /></div>}
           {error && <div className="text-center text-red-300 py-20">Không thể tải sản phẩm. Vui lòng thử lại.</div>}
 
           {!loading && !error && sections.map((section, sIdx) => {
@@ -165,26 +165,26 @@ const JapanGundamPage = () => {
               >
                 <div className="flex items-center justify-between border-b border-white/10 pb-6">
                   <h2 className="text-2xl font-black italic flex items-center tracking-widest text-white">
-                    {section.title} 
+                    {section.title}
                     <span className="ml-4 text-xs font-bold text-blue-400 not-italic uppercase opacity-60 tracking-[0.2em]">
                       Tỉ lệ {section.scale}
                     </span>
                   </h2>
-                  
+
                   {totalPages > 1 && (
                     <div className="flex items-center space-x-4">
-                      <button 
-                         disabled={page === 1}
-                         onClick={() => setCurrentPages(prev => ({ ...prev, [sIdx]: page - 1 }))}
-                         className="p-1 border border-white/10 rounded hover:bg-white/5 disabled:opacity-20 transition-all"
+                      <button
+                        disabled={page === 1}
+                        onClick={() => setCurrentPages(prev => ({ ...prev, [sIdx]: page - 1 }))}
+                        className="p-1 border border-white/10 rounded hover:bg-white/5 disabled:opacity-20 transition-all cursor-pointer"
                       >
                         <IoChevronBackOutline className="text-white" />
                       </button>
                       <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest">Trang {page} / {totalPages}</span>
-                      <button 
-                         disabled={page === totalPages}
-                         onClick={() => setCurrentPages(prev => ({ ...prev, [sIdx]: page + 1 }))}
-                         className="p-1 border border-white/10 rounded hover:bg-white/5 disabled:opacity-20 transition-all"
+                      <button
+                        disabled={page === totalPages}
+                        onClick={() => setCurrentPages(prev => ({ ...prev, [sIdx]: page + 1 }))}
+                        className="p-1 border border-white/10 rounded hover:bg-white/5 disabled:opacity-20 transition-all cursor-pointer"
                       >
                         <IoChevronForwardOutline className="text-white" />
                       </button>

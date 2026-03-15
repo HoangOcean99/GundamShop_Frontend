@@ -5,6 +5,7 @@ import GundamNews from "../components/GundamNews";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { getAllProducts } from "../api/productApi";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const HomePage = () => {
     const [products, setProducts] = useState([]);
@@ -15,7 +16,6 @@ const HomePage = () => {
             try {
                 setLoading(true);
                 const allProducts = await getAllProducts();
-                // Sort by price descending and take top 4
                 const sorted = [...allProducts]
                     .sort((a, b) => b.price - a.price)
                     .slice(0, 4);
@@ -33,6 +33,8 @@ const HomePage = () => {
         if (price == null) return "";
         return price.toLocaleString("vi-VN") + "đ";
     };
+    if (loading) return <div className="text-center text-gray-200 py-20"><LoadingSpinner /></div>
+
 
     return (
         <div className="w-full mx-auto bg-transparent">
@@ -46,7 +48,7 @@ const HomePage = () => {
                     <div className="absolute inset-0 bg-gradient-to-r from-[#03112E]/60 to-transparent z-10"></div>
                     <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20 z-10 mix-blend-screen pointer-events-none"></div>
                     <img
-                        src="../src/assets/GundamNhat.png"
+                        src="/GundamNhat.png"
                         className="absolute inset-0 w-[105%] h-[95%] object-contain translate-x-[-120px] translate-y-[20px] z-0 opacity-90 group-hover:scale-105 transition-transform duration-700"
                         alt="JP"
                     />
@@ -70,7 +72,7 @@ const HomePage = () => {
                     <div className="absolute inset-0 bg-gradient-to-l from-[#2A0808]/60 to-transparent z-10"></div>
                     <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20 z-10 mix-blend-screen pointer-events-none"></div>
                     <img
-                        src="../src/assets/GundamTrung.png"
+                        src="/GundamTrung.png"
                         className="absolute inset-0 w-[110%] h-[115%] object-contain translate-x-[110px] translate-y-[10px] z-0 opacity-90 group-hover:scale-105 transition-transform duration-700"
                         alt="CN"
                     />

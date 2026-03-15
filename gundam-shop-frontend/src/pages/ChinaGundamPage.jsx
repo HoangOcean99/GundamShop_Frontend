@@ -67,7 +67,7 @@ const ChinaGundamPage = () => {
         });
 
         setProductsBySubCategory(grouped);
-        
+
         const initialPages = {};
         subCategoryOrder.forEach((_, idx) => {
           initialPages[idx] = 1;
@@ -102,11 +102,12 @@ const ChinaGundamPage = () => {
       });
     }
   };
+  if (loading) return <div className="text-center text-gray-200 py-20"><LoadingSpinner /></div>
 
   return (
     <div
       className="w-full bg-fixed bg-cover bg-center min-h-screen relative flex flex-col"
-      style={{ backgroundImage: "url('../src/assets/cnGundamBG.png')" }}
+      style={{ backgroundImage: "url('/cnGundamBG.png')" }}
     >
       <div className="absolute inset-0 bg-black/20 z-0"></div>
 
@@ -127,7 +128,7 @@ const ChinaGundamPage = () => {
 
             <div className="flex items-center space-x-3 mb-8 pb-4 border-b border-white/5">
               <div className="w-8 h-8 bg-red-900/20 rounded flex items-center justify-center border border-red-800/20">
-                <img src="../src/assets/logo.png" alt="L" className="w-5 h-5 object-contain mix-blend-screen" />
+                <img src="/logo.png" alt="L" className="w-5 h-5 object-contain mix-blend-screen" />
               </div>
               <h3 className="font-black italic text-sm tracking-widest text-white uppercase">TỈ LỆ GUNDAM</h3>
             </div>
@@ -155,7 +156,6 @@ const ChinaGundamPage = () => {
         </aside>
 
         <main className="space-y-16">
-          {loading && <div className="text-center py-20"><LoadingSpinner /></div>}
           {error && <div className="text-center text-red-300 py-20">Không thể tải sản phẩm. Vui lòng thử lại.</div>}
 
           {!loading && !error && sections.map((section, sIdx) => {
@@ -176,21 +176,21 @@ const ChinaGundamPage = () => {
                   <h2 className="text-2xl font-black italic flex items-center tracking-widest text-white uppercase">
                     {section.title}
                   </h2>
-                  
+
                   {totalPages > 1 && (
                     <div className="flex items-center space-x-4">
-                      <button 
-                         disabled={page === 1}
-                         onClick={() => setCurrentPages(prev => ({ ...prev, [sIdx]: page - 1 }))}
-                         className="p-1 border border-white/10 rounded hover:bg-white/5 disabled:opacity-20 transition-all"
+                      <button
+                        disabled={page === 1}
+                        onClick={() => setCurrentPages(prev => ({ ...prev, [sIdx]: page - 1 }))}
+                        className="p-1 border border-white/10 rounded hover:bg-white/5 disabled:opacity-20 transition-all cursor-pointer"
                       >
                         <IoChevronBackOutline className="text-white" />
                       </button>
                       <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest">Trang {page} / {totalPages}</span>
-                      <button 
-                         disabled={page === totalPages}
-                         onClick={() => setCurrentPages(prev => ({ ...prev, [sIdx]: page + 1 }))}
-                         className="p-1 border border-white/10 rounded hover:bg-white/5 disabled:opacity-20 transition-all"
+                      <button
+                        disabled={page === totalPages}
+                        onClick={() => setCurrentPages(prev => ({ ...prev, [sIdx]: page + 1 }))}
+                        className="p-1 border border-white/10 rounded hover:bg-white/5 disabled:opacity-20 transition-all cursor-pointer"
                       >
                         <IoChevronForwardOutline className="text-white" />
                       </button>

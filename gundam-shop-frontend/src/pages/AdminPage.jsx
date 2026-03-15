@@ -12,7 +12,7 @@ import {
 } from "react-icons/io5";
 import AdminHeader from "../components/AdminHeader";
 import { getAllUsers, createUser, updateUser, deleteUser } from "../api/userApi";
-import { getAllOrders, updateOrder, deleteOrder } from "../api/orderApi";
+import { getAllOrders, updateOrder } from "../api/orderApi";
 import { getAllProducts, createProduct, updateProduct, deleteProduct } from "../api/productApi";
 
 const AdminPage = () => {
@@ -261,18 +261,6 @@ const AdminPage = () => {
     }
   };
 
-  const handleDeleteOrder = async (id) => {
-    if (window.confirm("Bạn có chắc muốn xóa đơn hàng này?")) {
-      try {
-        await deleteOrder(id);
-        setOrders(orders.filter(o => o._id !== id));
-      } catch (err) {
-        console.error("Error deleting order:", err);
-        alert("Lỗi khi xóa đơn hàng: " + err.message);
-      }
-    }
-  };
-
   const formatPrice = (price) => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + "đ";
   };
@@ -361,7 +349,7 @@ const AdminPage = () => {
               className={`w-full flex items-center justify-between p-3 rounded-sm transition-all ${activeTab === "products-japan"
                   ? "bg-blue-600/20 text-blue-400 border border-blue-500/30 shadow-[inset_0_0_15px_rgba(0,102,255,0.2)]"
                   : "text-gray-400 hover:bg-white/5 hover:text-white"
-                }`}
+                } cursor-pointer`}
             >
               <div className="flex items-center font-bold text-xs tracking-widest uppercase">
                 <IoPricetagOutline className="w-4 h-4 mr-3" />
@@ -374,7 +362,7 @@ const AdminPage = () => {
               className={`w-full flex items-center justify-between p-3 rounded-sm transition-all ${activeTab === "products-china"
                   ? "bg-red-600/20 text-red-400 border border-red-500/30 shadow-[inset_0_0_15px_rgba(255,50,0,0.2)]"
                   : "text-gray-400 hover:bg-white/5 hover:text-white"
-                }`}
+                } cursor-pointer`}
             >
               <div className="flex items-center font-bold text-xs tracking-widest uppercase">
                 <IoPricetagOutline className="w-4 h-4 mr-3" />
@@ -387,7 +375,7 @@ const AdminPage = () => {
               className={`w-full flex items-center justify-between p-3 rounded-sm transition-all ${activeTab === "users"
                   ? "bg-green-600/20 text-green-400 border border-green-500/30 shadow-[inset_0_0_15px_rgba(0,255,0,0.2)]"
                   : "text-gray-400 hover:bg-white/5 hover:text-white"
-                }`}
+                } cursor-pointer`}
             >
               <div className="flex items-center font-bold text-xs tracking-widest uppercase">
                 <IoPeopleOutline className="w-4 h-4 mr-3" />
@@ -400,7 +388,7 @@ const AdminPage = () => {
               className={`w-full flex items-center justify-between p-3 rounded-sm transition-all ${activeTab === "orders"
                   ? "bg-purple-600/20 text-purple-400 border border-purple-500/30 shadow-[inset_0_0_15px_rgba(128,0,128,0.2)]"
                   : "text-gray-400 hover:bg-white/5 hover:text-white"
-                }`}
+                } cursor-pointer`}
             >
               <div className="flex items-center font-bold text-xs tracking-widest uppercase">
                 <IoDocumentTextOutline className="w-4 h-4 mr-3" />
@@ -410,12 +398,6 @@ const AdminPage = () => {
 
             <div className="my-6 border-b border-white/5"></div>
 
-            <button className="w-full flex items-center p-3 rounded-sm transition-all text-gray-400 hover:bg-white/5 hover:text-white">
-              <div className="flex items-center font-bold text-xs tracking-widest uppercase">
-                <IoSettingsOutline className="w-4 h-4 mr-3" />
-                Cài đặt hệ thống
-              </div>
-            </button>
           </div>
         </aside>
 
@@ -445,7 +427,7 @@ const AdminPage = () => {
                 onClick={handleAddProduct}
                 className={`flex items-center space-x-2 px-6 py-2.5 rounded-sm font-black text-xs uppercase tracking-widest border transition-all shadow-lg text-white ${activeTab === 'products-japan'
                     ? 'bg-blue-600/80 border-blue-400 hover:bg-blue-500 hover:shadow-[0_0_20px_rgba(0,102,255,0.6)]'
-                    : 'bg-red-600/80 border-red-400 hover:bg-red-500 hover:shadow-[0_0_20px_rgba(255,50,0,0.6)]'}`}
+                    : 'bg-red-600/80 border-red-400 hover:bg-red-500 hover:shadow-[0_0_20px_rgba(255,50,0,0.6)]'} cursor-pointer`}
               >
                 <IoAddCircleOutline className="w-5 h-5" />
                 <span>Thêm sản phẩm</span>
@@ -455,7 +437,7 @@ const AdminPage = () => {
             {activeTab === "users" && (
               <button
                 onClick={handleAddUser}
-                className="flex items-center space-x-2 px-6 py-2.5 rounded-sm font-black text-xs uppercase tracking-widest border transition-all shadow-lg text-white bg-green-600/80 border-green-400 hover:bg-green-500 hover:shadow-[0_0_20px_rgba(0,255,0,0.6)]"
+                className="flex items-center space-x-2 px-6 py-2.5 rounded-sm font-black text-xs uppercase tracking-widest border transition-all shadow-lg text-white bg-green-600/80 border-green-400 hover:bg-green-500 hover:shadow-[0_0_20px_rgba(0,255,0,0.6)] cursor-pointer"
               >
                 <IoAddCircleOutline className="w-5 h-5" />
                 <span>Thêm người dùng</span>
@@ -530,13 +512,13 @@ const AdminPage = () => {
                         <div className="flex justify-center items-center space-x-3">
                           <button
                             onClick={() => handleEditProduct(product)}
-                            className="text-gray-400 hover:text-blue-400 transition-colors p-1.5 hover:bg-blue-400/10 rounded"
+                            className="text-gray-400 hover:text-blue-400 transition-colors p-1.5 hover:bg-blue-400/10 rounded cursor-pointer"
                           >
                             <IoPencilOutline className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => handleDeleteProduct(product._id)}
-                            className="text-gray-400 hover:text-red-500 transition-colors p-1.5 hover:bg-red-500/10 rounded"
+                            className="text-gray-400 hover:text-red-500 transition-colors p-1.5 hover:bg-red-500/10 rounded cursor-pointer"
                           >
                             <IoTrashOutline className="w-4 h-4" />
                           </button>
@@ -581,13 +563,13 @@ const AdminPage = () => {
                         <div className="flex justify-center items-center space-x-3">
                           <button
                             onClick={() => handleEditUser(user)}
-                            className="text-gray-400 hover:text-blue-400 transition-colors p-1.5 hover:bg-blue-400/10 rounded"
+                            className="text-gray-400 hover:text-blue-400 transition-colors p-1.5 hover:bg-blue-400/10 rounded cursor-pointer"
                           >
                             <IoPencilOutline className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => handleDeleteUser(user._id)}
-                            className="text-gray-400 hover:text-red-500 transition-colors p-1.5 hover:bg-red-500/10 rounded"
+                            className="text-gray-400 hover:text-red-500 transition-colors p-1.5 hover:bg-red-500/10 rounded cursor-pointer"
                           >
                             <IoTrashOutline className="w-4 h-4" />
                           </button>
@@ -617,12 +599,13 @@ const AdminPage = () => {
                         {order.user?.name || "N/A"}
                       </td>
                       <td className="p-4 text-sm font-bold text-gray-300 text-right">
-                        {formatPrice(order.totalAmount)}
+                        {formatPrice(order.totalPrice)}
                       </td>
                       <td className="p-4 text-center">
-                        <span className={`inline-block px-2 py-1 text-[9px] font-bold rounded uppercase border ${order.status === 'completed' ? 'bg-green-900/30 text-green-300 border-green-500/30' :
+                        <span className={`inline-block px-2 py-1 text-[9px] font-bold rounded uppercase border ${order.status === 'done' ? 'bg-green-900/30 text-green-300 border-green-500/30' :
                             order.status === 'pending' ? 'bg-yellow-900/30 text-yellow-300 border-yellow-500/30' :
-                              'bg-gray-900/30 text-gray-300 border-gray-500/30'
+                              order.status === 'shipping' ? 'bg-blue-900/30 text-blue-300 border-blue-500/30' :
+                                'bg-red-900/30 text-red-300 border-red-500/30'
                           }`}>
                           {order.status || "pending"}
                         </span>
@@ -634,15 +617,9 @@ const AdminPage = () => {
                         <div className="flex justify-center items-center space-x-3">
                           <button
                             onClick={() => handleEditOrder(order)}
-                            className="text-gray-400 hover:text-blue-400 transition-colors p-1.5 hover:bg-blue-400/10 rounded"
+                            className="text-gray-400 hover:text-blue-400 transition-colors p-1.5 hover:bg-blue-400/10 rounded cursor-pointer"
                           >
                             <IoPencilOutline className="w-4 h-4" />
-                          </button>
-                          <button
-                            onClick={() => handleDeleteOrder(order._id)}
-                            className="text-gray-400 hover:text-red-500 transition-colors p-1.5 hover:bg-red-500/10 rounded"
-                          >
-                            <IoTrashOutline className="w-4 h-4" />
                           </button>
                         </div>
                       </td>
@@ -676,7 +653,7 @@ const AdminPage = () => {
                   setShowAddModal(false);
                   setShowEditModal(false);
                 }}
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-400 hover:text-white transition-colors cursor-pointer"
               >
                 <IoCloseOutline className="w-6 h-6" />
               </button>
@@ -725,7 +702,7 @@ const AdminPage = () => {
                     name="mainCategory"
                     value={formData.mainCategory}
                     onChange={handleInputChange}
-                    className="w-full bg-black/60 border border-white/10 rounded px-3 py-2 text-white focus:border-blue-400 focus:outline-none"
+                    className="w-full bg-black/60 border border-white/10 rounded px-3 py-2 text-white focus:border-blue-400 focus:outline-none cursor-pointer"
                   >
                     <option value="Gundam Nhật Bản">Gundam Nhật Bản</option>
                     <option value="Gundam Trung Quốc">Gundam Trung Quốc</option>
@@ -740,7 +717,7 @@ const AdminPage = () => {
                     name="subCategory"
                     value={formData.subCategory}
                     onChange={handleInputChange}
-                    className="w-full bg-black/60 border border-white/10 rounded px-3 py-2 text-white focus:border-blue-400 focus:outline-none"
+                    className="w-full bg-black/60 border border-white/10 rounded px-3 py-2 text-white focus:border-blue-400 focus:outline-none cursor-pointer"
                   >
                     {subCategoryOptions.map(option => (
                       <option key={option} value={option}>{option}</option>
@@ -802,7 +779,7 @@ const AdminPage = () => {
                       <button
                         type="button"
                         onClick={() => removeImageField(index)}
-                        className="text-red-400 hover:text-red-300 p-2"
+                        className="text-red-400 hover:text-red-300 p-2 cursor-pointer"
                       >
                         <IoTrashOutline className="w-4 h-4" />
                       </button>
@@ -812,7 +789,7 @@ const AdminPage = () => {
                 <button
                   type="button"
                   onClick={addImageField}
-                  className="text-blue-400 hover:text-blue-300 text-sm font-bold"
+                  className="text-blue-400 hover:text-blue-300 text-sm font-bold cursor-pointer"
                 >
                   + Thêm hình ảnh
                 </button>
@@ -837,13 +814,13 @@ const AdminPage = () => {
                     setShowAddModal(false);
                     setShowEditModal(false);
                   }}
-                  className="px-6 py-2 bg-gray-600 hover:bg-gray-500 text-white rounded font-bold transition-colors"
+                  className="px-6 py-2 bg-gray-600 hover:bg-gray-500 text-white rounded font-bold transition-colors cursor-pointer"
                 >
                   Hủy
                 </button>
                 <button
                   type="submit"
-                  className={`px-6 py-2 text-white rounded font-bold transition-colors ${activeTab === 'products-japan'
+                  className={`px-6 py-2 text-white rounded font-bold transition-colors cursor-pointer ${activeTab === 'products-japan'
                       ? 'bg-blue-600 hover:bg-blue-500'
                       : 'bg-red-600 hover:bg-red-500'
                     }`}
@@ -869,7 +846,7 @@ const AdminPage = () => {
                   setShowAddUserModal(false);
                   setShowEditUserModal(false);
                 }}
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-400 hover:text-white transition-colors cursor-pointer"
               >
                 <IoCloseOutline className="w-6 h-6" />
               </button>
@@ -913,7 +890,7 @@ const AdminPage = () => {
                   name="role"
                   value={userFormData.role}
                   onChange={(e) => setUserFormData({ ...userFormData, role: e.target.value })}
-                  className="w-full bg-black/50 border border-white/10 rounded px-3 py-2 text-white focus:border-green-400 focus:outline-none"
+                  className="w-full bg-black/50 border border-white/10 rounded px-3 py-2 text-white focus:border-green-400 focus:outline-none cursor-pointer"
                 >
                   <option value="user">User</option>
                   <option value="admin">Admin</option>
@@ -927,13 +904,13 @@ const AdminPage = () => {
                     setShowAddUserModal(false);
                     setShowEditUserModal(false);
                   }}
-                  className="px-4 py-2 text-gray-400 hover:text-white transition-colors font-bold"
+                  className="px-4 py-2 text-gray-400 hover:text-white transition-colors font-bold cursor-pointer"
                 >
                   Hủy
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2 bg-green-600 hover:bg-green-500 text-white rounded font-bold transition-colors"
+                  className="px-6 py-2 bg-green-600 hover:bg-green-500 text-white rounded font-bold transition-colors cursor-pointer"
                 >
                   {showAddUserModal ? "Thêm người dùng" : "Cập nhật"}
                 </button>
@@ -953,7 +930,7 @@ const AdminPage = () => {
               </h2>
               <button
                 onClick={() => setShowEditOrderModal(false)}
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-400 hover:text-white transition-colors cursor-pointer"
               >
                 <IoCloseOutline className="w-6 h-6" />
               </button>
@@ -990,7 +967,7 @@ const AdminPage = () => {
                 </label>
                 <input
                   type="text"
-                  value={formatPrice(selectedOrder?.totalAmount || 0)}
+                  value={formatPrice(selectedOrder?.totalPrice || 0)}
                   className="w-full bg-black/50 border border-white/10 rounded px-3 py-2 text-gray-400 cursor-not-allowed"
                   disabled
                 />
@@ -1004,12 +981,12 @@ const AdminPage = () => {
                   name="status"
                   value={orderFormData.status}
                   onChange={(e) => setOrderFormData({ ...orderFormData, status: e.target.value })}
-                  className="w-full bg-black/50 border border-white/10 rounded px-3 py-2 text-white focus:border-purple-400 focus:outline-none"
+                  className="w-full bg-black/50 border border-white/10 rounded px-3 py-2 text-white focus:border-purple-400 focus:outline-none cursor-pointer"
                 >
-                  <option value="pending">Đang xử lý</option>
-                  <option value="processing">Đang giao</option>
-                  <option value="completed">Hoàn thành</option>
-                  <option value="cancelled">Đã hủy</option>
+                  <option value="pending">Chờ xử lý</option>
+                  <option value="shipping">Đang giao</option>
+                  <option value="done">Hoàn thành</option>
+                  <option value="cancel">Đã hủy</option>
                 </select>
               </div>
 
@@ -1017,13 +994,13 @@ const AdminPage = () => {
                 <button
                   type="button"
                   onClick={() => setShowEditOrderModal(false)}
-                  className="px-4 py-2 text-gray-400 hover:text-white transition-colors font-bold"
+                  className="px-4 py-2 text-gray-400 hover:text-white transition-colors font-bold cursor-pointer"
                 >
                   Hủy
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded font-bold transition-colors"
+                  className="px-6 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded font-bold transition-colors cursor-pointer"
                 >
                   Cập nhật đơn hàng
                 </button>

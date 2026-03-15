@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../firebase';
 import { getUserByFirebaseId } from '../api/userApi';
+import LoadingSpinner from './LoadingSpinner';
 
 const AdminRoute = ({ children }) => {
     const [user, setUser] = useState(null);
@@ -31,9 +32,7 @@ const AdminRoute = ({ children }) => {
         return () => unsubscribe();
     }, []);
 
-    if (loading) {
-        return <div className="flex justify-center items-center h-screen text-white">Loading...</div>;
-    }
+        if (loading) return <div className="text-center text-gray-200 py-20"><LoadingSpinner /></div>
 
     if (!user) {
         return <Navigate to="/login" replace />;

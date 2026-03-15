@@ -7,7 +7,7 @@ const AdminHeader = () => {
         <nav className="flex items-center justify-between px-8 py-4 border-b border-white/10 bg-[#060608]/40 backdrop-blur-xl sticky top-0 z-50">
             <Link to="/" className="flex items-center space-x-3 cursor-pointer group">
                 <img
-                    src="../src/assets/logo.png"
+                    src="/logo.png"
                     alt="Logo"
                     className="w-10 h-10 object-contain mix-blend-screen group-hover:scale-110 transition-transform"
                 />

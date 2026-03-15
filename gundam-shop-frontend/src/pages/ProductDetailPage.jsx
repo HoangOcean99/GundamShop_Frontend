@@ -26,7 +26,7 @@ const BuyNowModal = ({ product, isOpen, onClose, onConfirm, accentColor, formatP
       <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose}></div>
       <div className="relative bg-[#0A0A0E] border border-white/10 w-full max-w-md p-6 rounded-sm shadow-2xl overflow-hidden">
         <div className={`absolute top-0 left-0 w-full h-1 ${accentColor === 'blue' ? 'bg-blue-600' : 'bg-red-600'}`}></div>
-        <button onClick={onClose} className="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors">
+        <button onClick={onClose} className="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors cursor-pointer">
           <IoCloseOutline size={24} />
         </button>
 
@@ -48,14 +48,14 @@ const BuyNowModal = ({ product, isOpen, onClose, onConfirm, accentColor, formatP
           <div className="flex items-center justify-between bg-black/40 border border-white/10 p-2 rounded-sm">
             <button 
               onClick={() => setQuantity(prev => Math.max(1, prev - 1))}
-              className="p-2 text-gray-400 hover:text-white transition-colors"
+              className="p-2 text-gray-400 hover:text-white transition-colors cursor-pointer"
             >
               <IoRemoveOutline />
             </button>
             <span className="text-lg font-black text-white">{quantity}</span>
             <button 
               onClick={() => setQuantity(prev => Math.min(product.stock, prev + 1))}
-              className="p-2 text-gray-400 hover:text-white transition-colors"
+              className="p-2 text-gray-400 hover:text-white transition-colors cursor-pointer"
             >
               <IoAddOutline />
             </button>
@@ -66,10 +66,10 @@ const BuyNowModal = ({ product, isOpen, onClose, onConfirm, accentColor, formatP
         </div>
 
         <div className="flex gap-3">
-          <button onClick={onClose} className="flex-1 py-3 border border-white/10 text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 hover:bg-white/5 transition-all">Hủy</button>
+          <button onClick={onClose} className="flex-1 py-3 border border-white/10 text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 hover:bg-white/5 transition-all cursor-pointer">Hủy</button>
           <button 
              onClick={handleConfirm}
-             className={`flex-1 py-3 ${accentColor === 'blue' ? 'bg-blue-600 shadow-[0_0_20px_rgba(0,102,255,0.3)]' : 'bg-red-600 shadow-[0_0_20px_rgba(255,51,0,0.3)]'} text-white text-[10px] font-black uppercase tracking-[0.2em] hover:brightness-110 active:scale-95 transition-all`}
+             className={`flex-1 py-3 ${accentColor === 'blue' ? 'bg-blue-600 shadow-[0_0_20px_rgba(0,102,255,0.3)]' : 'bg-red-600 shadow-[0_0_20px_rgba(255,51,0,0.3)]'} text-white text-[10px] font-black uppercase tracking-[0.2em] hover:brightness-110 active:scale-95 transition-all cursor-pointer`}
           >
             Vào giỏ hàng
           </button>
@@ -187,7 +187,7 @@ const ProductDetailPage = () => {
         <h2 className="text-2xl font-bold mb-4">Không tìm thấy sản phẩm</h2>
         <button
           onClick={() => navigate(-1)}
-          className="px-6 py-2 bg-blue-600 rounded-sm font-bold uppercase text-xs"
+          className="px-6 py-2 bg-blue-600 rounded-sm font-bold uppercase text-xs cursor-pointer"
         >
           Quay lại
         </button>
@@ -213,7 +213,7 @@ const ProductDetailPage = () => {
       <main className="relative z-10 flex-1 container mx-auto px-4 py-12 max-w-[1200px]">
         <button
           onClick={() => navigate(-1)}
-          className="flex items-center text-gray-400 hover:text-white transition-colors mb-8 group"
+          className="flex items-center text-gray-400 hover:text-white transition-colors mb-8 group cursor-pointer"
         >
           <IoChevronBackOutline className="mr-2 group-hover:-translate-x-1 transition-transform" />
           <span className="text-xs font-bold uppercase tracking-widest">Quay lại danh sách</span>
@@ -242,7 +242,7 @@ const ProductDetailPage = () => {
                     onClick={() => setSelectedImage(idx)}
                     className={`w-20 h-20 flex-shrink-0 bg-black/40 border ${
                       selectedImage === idx ? `border-${accentColor}-500 shadow-[0_0_10px_rgba(${isJapan ? '0,102,255' : '255,51,0'},0.3)]` : 'border-white/10'
-                    } rounded-sm overflow-hidden transition-all`}
+                    } rounded-sm overflow-hidden transition-all cursor-pointer`}
                   >
                     <img src={img} alt={`thumb-${idx}`} className="w-full h-full object-cover opacity-80 hover:opacity-100" />
                   </button>
@@ -304,14 +304,14 @@ const ProductDetailPage = () => {
                 <>
                   <button 
                     onClick={() => handleAddToCart()}
-                    className={`flex-1 flex items-center justify-center space-x-3 bg-white/5 border border-white/10 hover:bg-white/10 text-white text-xs font-black uppercase tracking-widest py-4 rounded-sm transition-all`}
+                    className={`flex-1 flex items-center justify-center space-x-3 bg-white/5 border border-white/10 hover:bg-white/10 text-white text-xs font-black uppercase tracking-widest py-4 rounded-sm transition-all cursor-pointer`}
                   >
                     <IoCartOutline className="text-xl" />
                     <span>Thêm vào giỏ</span>
                   </button>
                   <button 
                     onClick={() => setIsBuyNowOpen(true)}
-                    className={`flex-1 flex items-center justify-center space-x-3 ${accentColor === 'blue' ? 'bg-blue-600 shadow-[0_0_20px_rgba(0,102,255,0.3)]' : 'bg-red-600 shadow-[0_0_20px_rgba(255,51,0,0.3)]'} text-white text-xs font-black uppercase tracking-widest py-4 rounded-sm transition-all hover:brightness-110 active:scale-95`}
+                    className={`flex-1 flex items-center justify-center space-x-3 ${accentColor === 'blue' ? 'bg-blue-600 shadow-[0_0_20px_rgba(0,102,255,0.3)]' : 'bg-red-600 shadow-[0_0_20px_rgba(255,51,0,0.3)]'} text-white text-xs font-black uppercase tracking-widest py-4 rounded-sm transition-all hover:brightness-110 active:scale-95 cursor-pointer`}
                   >
                     <IoBagCheckOutline className="text-xl" />
                     <span>Mua ngay</span>
@@ -319,7 +319,7 @@ const ProductDetailPage = () => {
                 </>
               ) : (
                 <button 
-                  className="w-full flex items-center justify-center space-x-3 bg-red-900/20 border border-red-500/30 text-red-500 text-xs font-black uppercase tracking-widest py-4 rounded-sm transition-all cursor-default"
+                  className="w-full flex items-center justify-center space-x-3 bg-red-900/20 border border-red-500/30 text-red-500 text-xs font-black uppercase tracking-widest py-4 rounded-sm transition-all cursor-pointer"
                   onClick={() => toast("Vui lòng liên hệ với chúng tôi để đặt trước!", { icon: '📞' })}
                 >
                   <IoChatbubbleEllipsesOutline className="text-xl" />

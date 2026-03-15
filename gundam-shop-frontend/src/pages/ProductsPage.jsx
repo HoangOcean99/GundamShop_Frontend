@@ -76,6 +76,7 @@ const ProductsPage = () => {
   useEffect(() => {
     setCurrentPage(1);
   }, [priceFilter, statusFilter]);
+  if (loading) return <div className="text-center text-gray-200 py-20"><LoadingSpinner /></div>
 
   return (
     <div
@@ -151,7 +152,6 @@ const ProductsPage = () => {
         </aside>
 
         <main className="space-y-12">
-          {loading && <div className="text-center py-20"><LoadingSpinner /></div>}
           {error && <div className="text-center text-red-300 py-20">Không thể tải sản phẩm. Vui lòng thử lại.</div>}
 
           {!loading && !error && (
@@ -160,21 +160,21 @@ const ProductsPage = () => {
                 <span className="text-[11px] font-bold uppercase tracking-widest">
                   {filteredProducts.length} Sản phẩm tìm thấy
                 </span>
-                
+
                 {totalPages > 1 && (
                   <div className="flex items-center space-x-4">
-                    <button 
-                       disabled={currentPage === 1}
-                       onClick={() => setCurrentPage(prev => prev - 1)}
-                       className="p-1 border border-white/10 rounded hover:bg-white/5 disabled:opacity-20 transition-all"
+                    <button
+                      disabled={currentPage === 1}
+                      onClick={() => setCurrentPage(prev => prev - 1)}
+                      className="p-1 border border-white/10 rounded hover:bg-white/5 disabled:opacity-20 transition-all cursor-pointer"
                     >
                       <IoChevronBackOutline className="text-white" />
                     </button>
                     <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Trang {currentPage} / {totalPages}</span>
-                    <button 
-                       disabled={currentPage === totalPages}
-                       onClick={() => setCurrentPage(prev => prev + 1)}
-                       className="p-1 border border-white/10 rounded hover:bg-white/5 disabled:opacity-20 transition-all"
+                    <button
+                      disabled={currentPage === totalPages}
+                      onClick={() => setCurrentPage(prev => prev + 1)}
+                      className="p-1 border border-white/10 rounded hover:bg-white/5 disabled:opacity-20 transition-all cursor-pointer"
                     >
                       <IoChevronForwardOutline className="text-white" />
                     </button>

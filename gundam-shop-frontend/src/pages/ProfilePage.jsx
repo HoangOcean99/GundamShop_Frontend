@@ -155,7 +155,7 @@ const ProfilePage = () => {
     }
   };
 
-  const formatPrice = (price) => price?.toLocaleString("vi-VN") + "đ";
+  const formatPrice = (price) => (price || 0).toLocaleString("vi-VN") + "đ";
 
   if (loading) return <div className="min-h-screen bg-[#050B14] flex items-center justify-center"><LoadingSpinner /></div>;
 
@@ -350,9 +350,9 @@ const ProfilePage = () => {
                               </div>
                               <div className="flex flex-col">
                                 <span className="text-xs font-black text-white uppercase tracking-tight line-clamp-1">
-                                  {order.items[0].name} {order.items.length > 1 && `và ${order.items.length - 1} sản phẩm khác`}
+                                  {order.items[0]?.name || 'Sản phẩm không xác định'} {order.items.length > 1 && `và ${order.items.length - 1} sản phẩm khác`}
                                 </span>
-                                <span className="text-[10px] text-gray-500 font-bold mt-1 tracking-wider uppercase">Ngày đặt: {new Date(order.createdAt).toLocaleDateString()}</span>
+                                <span className="text-[10px] text-gray-500 font-bold mt-1 tracking-wider uppercase">Ngày đặt: {order.createdAt ? new Date(order.createdAt).toLocaleDateString() : 'N/A'}</span>
                               </div>
                             </div>
                           </div>
@@ -364,21 +364,21 @@ const ProfilePage = () => {
                               {order.status !== 'done' && order.status !== 'cancel' && (
                                 <button 
                                   onClick={(e) => handleConfirmReceived(e, order._id)}
-                                  className="px-3 py-1.5 bg-emerald-600/20 border border-emerald-500/30 text-emerald-400 text-[8px] font-black uppercase tracking-widest hover:bg-emerald-600 hover:text-white transition-all rounded-sm flex items-center"
+                                  className="px-3 py-1.5 bg-emerald-600/20 border border-emerald-500/30 text-emerald-400 text-[8px] font-black uppercase tracking-widest hover:bg-emerald-600 hover:text-white transition-all rounded-sm flex items-center cursor-pointer"
                                 >
                                   ĐÃ NHẬN HÀNG
                                 </button>
                               )}
-                              {order.status === 'done' && (
+                              {order.status === 'done' && order.items[0]?.product && (
                                 <Link 
-                                  to={`/product/${order.items[0].product?._id || order.items[0].product}`}
+                                  to={`/product/${order.items[0].product._id}`}
                                   onClick={(e) => e.stopPropagation()}
                                   className="px-3 py-1.5 bg-blue-600/20 border border-blue-500/30 text-blue-400 text-[8px] font-black uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all rounded-sm flex items-center"
                                 >
                                   <IoRepeatOutline className="mr-1 text-xs" /> MUA LẠI
                                 </Link>
                               )}
-                              <button className="p-1.5 bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all rounded-sm">
+                              <button className="p-1.5 bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all rounded-sm cursor-pointer">
                                 <IoEyeOutline className="text-sm" />
                               </button>
                             </div>
@@ -408,7 +408,7 @@ const ProfilePage = () => {
                     <p className="text-[8px] font-black text-gray-500 uppercase tracking-widest mt-1">LOG: {selectedOrder._id.toUpperCase()}</p>
                  </div>
                </div>
-               <button onClick={() => setSelectedOrder(null)} className="p-2 hover:bg-white/5 transition-all text-gray-400 hover:text-white">
+               <button onClick={() => setSelectedOrder(null)} className="p-2 hover:bg-white/5 transition-all text-gray-400 hover:text-white cursor-pointer">
                  <IoCloseCircleOutline className="text-2xl" />
                </button>
              </div>
@@ -427,7 +427,7 @@ const ProfilePage = () => {
                   </div>
                   <div className="space-y-2">
                     <span className="text-[8px] font-black text-gray-600 uppercase tracking-[0.2em]">THỜI GIAN KHỞI TẠO</span>
-                    <p className="text-xs font-bold text-white uppercase">{new Date(selectedOrder.createdAt).toLocaleString()}</p>
+                    <p className="text-xs font-bold text-white uppercase">{selectedOrder.createdAt ? new Date(selectedOrder.createdAt).toLocaleString() : 'N/A'}</p>
                   </div>
                </div>
 
@@ -453,8 +453,8 @@ const ProfilePage = () => {
                               <img src={item.product?.images?.[0] || "../src/assets/logo.png"} alt="p" className="w-full h-full object-cover" />
                            </div>
                            <div className="flex flex-col">
-                              <h4 className="text-[10px] font-black text-white uppercase tracking-tight group-hover:text-blue-400 transition-colors">{item.name}</h4>
-                              <span className="text-[9px] text-gray-500 font-bold mt-1 uppercase">x{item.quantity}  •  {formatPrice(item.price)}</span>
+                              <h4 className="text-[10px] font-black text-white uppercase tracking-tight group-hover:text-blue-400 transition-colors">{item.name || 'Sản phẩm không xác định'}</h4>
+                              <span className="text-[9px] text-gray-500 font-bold mt-1 uppercase">x{item.quantity || 0}  •  {formatPrice(item.price || 0)}</span>
                            </div>
                         </div>
                         <span className="text-xs font-black text-white italic">{formatPrice(item.price * item.quantity)}</span>

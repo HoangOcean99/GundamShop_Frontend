@@ -108,9 +108,9 @@ const Header = () => {
         <nav className="flex items-center justify-between px-10 py-6 border-b border-white/5 bg-[#060608]/5 backdrop-blur-md sticky top-0 z-50">
             <Link to="/" className="flex items-center space-x-4 cursor-pointer">
                 <img
-                    src="../src/assets/logo.png"
+                    src="/logo.png"
                     alt="Logo"
-                    className="w-12 h-12 object-contain mix-blend-screen"
+                    className="w-20 h-10 object-contain mix-blend-screen"
                 />
                 <span className="font-black italic text-3xl tracking-tighter drop-shadow-lg text-white">
                     GUNDAM STORE

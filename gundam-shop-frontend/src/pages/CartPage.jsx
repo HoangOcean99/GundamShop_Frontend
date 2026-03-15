@@ -10,6 +10,7 @@ import { getAllCarts, updateCart } from "../api/cartApi";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { getProductById } from "../api/productApi";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const CartPage = () => {
   const [cartId, setCartId] = useState(null);
@@ -135,7 +136,8 @@ const CartPage = () => {
   if (loading) {
     return (
       <div className="w-full h-screen flex items-center justify-center bg-black">
-        <span className="text-white">Đang tải giỏ hàng...</span>
+        <LoadingSpinner />
+        {/* <span className="text-white">Đang tải giỏ hàng...</span> */}
       </div>
     );
   }
@@ -230,7 +232,7 @@ const CartPage = () => {
                                 Math.max(1, (item.quantity || 1) - 1),
                               )
                             }
-                            className="px-3 py-1 text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
+                            className="px-3 py-1 text-gray-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
                           >
                             -
                           </button>
@@ -247,7 +249,7 @@ const CartPage = () => {
                                 (item.quantity || 1) + 1,
                               )
                             }
-                            className="px-3 py-1 text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
+                            className="px-3 py-1 text-gray-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
                           >
                             +
                           </button>
@@ -258,7 +260,7 @@ const CartPage = () => {
                       <div className="flex justify-center">
                         <button
                           onClick={() => removeItem(item._id || item.id)}
-                          className="p-2 text-gray-500 hover:text-red-500 hover:bg-red-500/10 rounded transition-colors"
+                          className="p-2 text-gray-500 hover:text-red-500 hover:bg-red-500/10 rounded transition-colors cursor-pointer"
                         >
                           <IoTrashOutline className="w-5 h-5" />
                         </button>
@@ -324,7 +326,7 @@ const CartPage = () => {
             <button 
               onClick={() => navigate("/checkout")}
               disabled={cartItems.length === 0 || updating}
-              className="w-full relative group overflow-hidden bg-blue-600 text-white font-black italic tracking-widest py-4 text-sm rounded-sm shadow-[0_0_20px_rgba(0,102,255,0.4)] hover:shadow-[0_0_30px_rgba(0,102,255,0.6)] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full relative group overflow-hidden bg-blue-600 text-white font-black italic tracking-widest py-4 text-sm rounded-sm shadow-[0_0_20px_rgba(0,102,255,0.4)] hover:shadow-[0_0_30px_rgba(0,102,255,0.6)] transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
             >
               <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
               <span className="relative z-10 w-full flex items-center justify-center">
