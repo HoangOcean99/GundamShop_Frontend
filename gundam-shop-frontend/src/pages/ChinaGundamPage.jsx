@@ -145,7 +145,7 @@ const ChinaGundamPage = () => {
       style={{ backgroundImage: "url('../src/assets/cnGundamBG.png')" }}
     >
       {/* Dark overlay for better content contrast */}
-      <div className="absolute inset-0 bg-black/60 z-0"></div>
+      <div className="absolute inset-0 bg-black/20 z-0"></div>
 
       <Header />
       <div className="max-w-[1400px] mx-auto px-10 pt-16 pb-6 relative z-20 text-left">
@@ -161,7 +161,7 @@ const ChinaGundamPage = () => {
       <div className="max-w-[1400px] mx-auto grid grid-cols-[280px_1fr] gap-10 px-10 py-12 relative z-20">
         {/* --- SIDEBAR --- */}
         <aside className="space-y-8">
-          <div className="bg-[#0A0A0E]/60 backdrop-blur-xl border border-white/10 p-6 rounded-sm shadow-2xl relative overflow-hidden group">
+          <div className="bg-[#0A0A0E]/30 backdrop-blur-xl border border-white/10 p-6 rounded-sm shadow-2xl relative overflow-hidden group">
             <div className="absolute top-0 left-0 w-1 h-full bg-red-900/40 shadow-[0_0_15px_rgba(255,0,0,0.2)]"></div>
 
             <div className="flex items-center space-x-3 mb-8 pb-4 border-b border-white/5">
@@ -220,7 +220,7 @@ const ChinaGundamPage = () => {
           {sections.map((section, sIdx) => (
             <section
               key={sIdx}
-              className="space-y-6 bg-[#0A0A0E]/40 backdrop-blur-lg border border-white/5 p-6 rounded-sm shadow-xl relative overflow-hidden group"
+              className="space-y-6 bg-[#0A0A0E]/20 backdrop-blur-lg border border-white/5 p-6 rounded-sm shadow-xl relative overflow-hidden group"
             >
               <div className="absolute top-0 right-0 w-24 h-24 bg-red-900/5 blur-[60px]"></div>
 
@@ -253,7 +253,7 @@ const ChinaGundamPage = () => {
                 {section.products.map((p, pIdx) => (
                   <div
                     key={pIdx}
-                    className="bg-[#0A0A0E]/60 backdrop-blur-md border border-white/10 p-3 rounded-sm group transition-all duration-300 hover:border-red-900/40 hover:-translate-y-1 relative shadow-lg"
+                    className="bg-[#0A0A0E]/30 backdrop-blur-md border border-white/10 p-3 rounded-sm group transition-all duration-300 hover:border-red-900/40 hover:-translate-y-1 relative shadow-lg"
                   >
                     <div className="aspect-square bg-[#111] overflow-hidden mb-3 relative rounded-sm shadow-inner">
                       <img

@@ -98,7 +98,7 @@ const HomePage = () => {
                     {products.map((p, i) => (
                         <div
                             key={i}
-                            className="bg-[#0A0A0E]/20 backdrop-blur-md border border-white/5 rounded-sm p-3 group hover:border-white/20 transition-all cursor-pointer shadow-lg hover:shadow-xl hover:shadow-blue-900/10 hover:-translate-y-1 relative"
+                            className="bg-[#0A0A0E]/10 backdrop-blur-md border border-white/5 rounded-sm p-3 group hover:border-white/20 transition-all cursor-pointer shadow-lg hover:shadow-xl hover:shadow-blue-900/10 hover:-translate-y-1 relative"
                         >
                             {/* Subtle top glow line */}
                             <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>

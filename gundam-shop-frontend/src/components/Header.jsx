@@ -26,7 +26,7 @@ const Header = () => {
         }
     }
     return (
-        <nav className="flex items-center justify-between px-10 py-6 border-b border-white/5 bg-[#060608]/10 backdrop-blur-md sticky top-0 z-50">
+        <nav className="flex items-center justify-between px-10 py-6 border-b border-white/5 bg-[#060608]/5 backdrop-blur-md sticky top-0 z-50">
             <Link to="/" className="flex items-center space-x-4 cursor-pointer">
                 <img
                     src="../src/assets/logo.png"

@@ -162,7 +162,7 @@ const JapanGundamPage = () => {
       style={{ backgroundImage: "url('../src/assets/jpGundamBG.png')" }}
     >
       {/* Dark overlay to make content pop */}
-      <div className="absolute inset-0 bg-black/40 z-0"></div>
+      <div className="absolute inset-0 bg-black/20 z-0"></div>
       <Header />
 
       <div className="max-w-[1400px] mx-auto px-10 pt-12 pb-4 relative z-20 text-left">
@@ -177,7 +177,7 @@ const JapanGundamPage = () => {
       <div className="max-w-[1400px] mx-auto grid grid-cols-[280px_1fr] gap-10 px-10 py-12 relative z-20">
         {/* --- SIDEBAR --- */}
         <aside className="space-y-8">
-          <div className="bg-[#0A0A0E]/60 backdrop-blur-xl border border-white/10 p-6 rounded-sm shadow-2xl relative overflow-hidden group">
+          <div className="bg-[#0A0A0E]/30 backdrop-blur-xl border border-white/10 p-6 rounded-sm shadow-2xl relative overflow-hidden group">
             <div className="absolute top-0 left-0 w-1 h-full bg-blue-900/40 shadow-[0_0_10px_rgba(0,102,255,0.2)]"></div>
             <div className="flex items-center space-x-3 mb-8 pb-4 border-b border-white/5">
               <div className="w-8 h-8 bg-blue-600/20 rounded flex items-center justify-center">
@@ -230,7 +230,7 @@ const JapanGundamPage = () => {
           {sections.map((section, sIdx) => (
             <section
               key={sIdx}
-              className="space-y-6 bg-[#0A0A0E]/40 backdrop-blur-lg border border-white/5 p-6 rounded-sm shadow-xl"
+              className="space-y-6 bg-[#0A0A0E]/20 backdrop-blur-lg border border-white/5 p-6 rounded-sm shadow-xl"
             >
               <div className="flex items-center justify-between border-b border-white/10 pb-4">
                 <h2 className="text-xl font-black italic flex items-center tracking-widest">
@@ -256,7 +256,7 @@ const JapanGundamPage = () => {
                 {section.products.map((p, pIdx) => (
                   <div
                     key={pIdx}
-                    className="bg-[#0A0A0E]/60 backdrop-blur-md border border-white/10 p-3 rounded-sm group hover:border-blue-500/40 transition-all hover:-translate-y-1 relative shadow-lg"
+                    className="bg-[#0A0A0E]/30 backdrop-blur-md border border-white/10 p-3 rounded-sm group hover:border-blue-500/40 transition-all hover:-translate-y-1 relative shadow-lg"
                   >
                     <div className="aspect-square bg-[#111115] overflow-hidden mb-3 relative rounded-sm shadow-inner">
                       <img
