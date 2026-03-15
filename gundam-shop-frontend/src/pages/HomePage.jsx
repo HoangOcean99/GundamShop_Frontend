@@ -1,33 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import GundamComparison from "../components/GundamComparison";
 import GundamNews from "../components/GundamNews";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { getAllProducts } from "../api/productApi";
 
 const HomePage = () => {
-    const products = [
-        {
-            name: "RX-78-2 Gundam",
-            price: "850.000đ",
-            img: "https://via.placeholder.com/300x400",
-        },
-        {
-            name: "Gundam Barbatos",
-            price: "990.000đ",
-            img: "https://via.placeholder.com/300x400",
-        },
-        {
-            name: "Gundam Dynames",
-            price: "1.100.000đ",
-            img: "https://via.placeholder.com/300x400",
-        },
-        {
-            name: "Qinglong Gundam",
-            price: "920.000đ",
-            img: "https://via.placeholder.com/300x400",
-        },
-    ];
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchTopProducts = async () => {
+            try {
+                setLoading(true);
+                const allProducts = await getAllProducts();
+                // Sort by price descending and take top 4
+                const sorted = [...allProducts]
+                    .sort((a, b) => b.price - a.price)
+                    .slice(0, 4);
+                setProducts(sorted);
+            } catch (error) {
+                console.error("Error fetching top products:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchTopProducts();
+    }, []);
+
+    const formatPrice = (price) => {
+        if (price == null) return "";
+        return price.toLocaleString("vi-VN") + "đ";
+    };
 
     return (
         <div className="w-full mx-auto bg-transparent">
@@ -90,37 +95,51 @@ const HomePage = () => {
                     <h2 className="text-xl font-black uppercase tracking-widest italic drop-shadow-md">
                         SẢN PHẨM NỔI BẬT
                     </h2>
-                    <button className="bg-transparent border border-white/10 px-5 py-1.5 text-[10px] rounded-full hover:bg-white/10 transition-colors font-bold uppercase text-gray-300 hover:text-white">
+                    <Link to="/products" className="bg-transparent border border-white/10 px-5 py-1.5 text-[10px] rounded-full hover:bg-white/10 transition-colors font-bold uppercase text-gray-300 hover:text-white flex items-center">
                         XEM TẤT CẢ <span className="ml-1">›</span>
-                    </button>
+                    </Link>
                 </div>
                 <div className="grid grid-cols-4 gap-6">
-                    {products.map((p, i) => (
-                        <div
-                            key={i}
-                            className="bg-[#0A0A0E]/10 backdrop-blur-md border border-white/5 rounded-sm p-3 group hover:border-white/20 transition-all cursor-pointer shadow-lg hover:shadow-xl hover:shadow-blue-900/10 hover:-translate-y-1 relative"
-                        >
-                            {/* Subtle top glow line */}
-                            <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-
-                            <div className="aspect-[3/4] bg-gradient-to-b from-[#111115] to-[#0A0A0E] overflow-hidden mb-4 relative flex justify-center items-center shadow-inner">
-                                <img
-                                    src={p.img}
-                                    className="w-full h-full object-cover group-hover:scale-110 transition duration-700 opacity-90 group-hover:opacity-100"
-                                    alt={p.name}
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
-                            </div>
-                            <div className="text-center pb-2">
-                                <h3 className="text-[13px] font-bold text-gray-200 group-hover:text-blue-400 transition-colors">
-                                    {p.name}
-                                </h3>
-                                <p className="text-[12px] font-semibold text-gray-400 mt-1.5 tracking-wide">
-                                    {p.price}
-                                </p>
-                            </div>
+                    {loading ? (
+                        <div className="col-span-4 text-center py-10 text-gray-400 font-bold uppercase tracking-widest">
+                            Đang tải sản phẩm...
                         </div>
-                    ))}
+                    ) : products.length === 0 ? (
+                        <div className="col-span-4 text-center py-10 text-gray-500 italic">
+                            Chưa có sản phẩm nào.
+                        </div>
+                    ) : (
+                        products.map((p, i) => (
+                            <Link
+                                to={`/product/${p._id}`}
+                                key={p._id || i}
+                                className="bg-[#0A0A0E]/10 backdrop-blur-md border border-white/5 rounded-sm p-3 group hover:border-white/20 transition-all cursor-pointer shadow-lg hover:shadow-xl hover:shadow-blue-900/10 hover:-translate-y-1 relative block"
+                            >
+                                {/* Subtle top glow line */}
+                                <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+
+                                <div className="aspect-[3/4] bg-gradient-to-b from-[#111115] to-[#0A0A0E] overflow-hidden mb-4 relative flex justify-center items-center shadow-inner rounded-sm">
+                                    <img
+                                        src={p.images?.[0] || "https://via.placeholder.com/300x400"}
+                                        className="w-full h-full object-contain group-hover:scale-110 transition duration-700 opacity-90 group-hover:opacity-100 p-2"
+                                        alt={p.name}
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
+                                    {p.stock === 0 && (
+                                        <div className="absolute top-2 right-2 bg-red-600 text-[8px] font-black text-white px-2 py-0.5 rounded-sm uppercase tracking-tighter italic">Hết hàng</div>
+                                    )}
+                                </div>
+                                <div className="text-center pb-2">
+                                    <h3 className="text-[11px] font-bold text-gray-200 group-hover:text-blue-400 transition-colors uppercase tracking-tight line-clamp-1">
+                                        {p.name}
+                                    </h3>
+                                    <p className="text-[12px] font-black text-white mt-1.5 tracking-widest italic">
+                                        {formatPrice(p.price)}
+                                    </p>
+                                </div>
+                            </Link>
+                        ))
+                    )}
                 </div>
             </section>
 

@@ -12,6 +12,7 @@ import CartPage from './pages/CartPage'
 import ProfilePage from './pages/ProfilePage'
 import ProductDetailPage from './pages/ProductDetailPage'
 import CheckoutPage from './pages/CheckoutPage'
+import ProductsPage from './pages/ProductsPage'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Toaster position="top-right" reverseOrder={false} />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/products" element={<ProductsPage />} />
         <Route path="/japan-gundam" element={<ProtectedRoute><JapanGundamPage /></ProtectedRoute>} />
         <Route path="/china-gundam" element={<ProtectedRoute><ChinaGundamPage /></ProtectedRoute>} />
         <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />

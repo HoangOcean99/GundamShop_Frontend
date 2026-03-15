@@ -10,9 +10,9 @@ const JapanGundamPage = () => {
   const [sections, setSections] = useState([
     { title: "HG", scale: "1/144", subCategory: "HG", products: [] },
     { title: "RG", scale: "1/144", subCategory: "RG", products: [] },
-    { title: "RG", scale: "1/100", subCategory: "RG", products: [] },
+    { title: "MG", scale: "1/100", subCategory: "MG", products: [] },
     { title: "PG", scale: "1/60", subCategory: "PG", products: [] },
-    { title: "SD", scale: "Non-Scale", subCategory: "SD", products: [] },
+    { title: "SD", scale: "Non-scale", subCategory: "SD", products: [] },
   ]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -55,8 +55,8 @@ const JapanGundamPage = () => {
           ...section,
           products: products.filter(
             (p) =>
-              p.subCategory === section.subCategory &&
-              p.scale === section.scale,
+              p.subCategory?.toLowerCase() === section.subCategory?.toLowerCase() &&
+              p.scale?.toLowerCase() === section.scale?.toLowerCase(),
           ),
         }));
 
