@@ -3,13 +3,13 @@ import { getAuth } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBgqxBfqMqUlOUv4lsCLVZZ0dd5mKfJEy8",
-  authDomain: "ocan-shop.firebaseapp.com",
-  projectId: "ocan-shop",
-  storageBucket: "ocan-shop.firebasestorage.app",
-  messagingSenderId: "420054305233",
-  appId: "1:420054305233:web:a2dc8a3290eee70537b8f0",
-  measurementId: "G-2SYF7NJ3RV"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
 const app = initializeApp(firebaseConfig);
