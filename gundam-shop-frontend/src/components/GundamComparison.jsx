@@ -100,9 +100,9 @@ const GundamComparison = () => {
 
         {/* Bottom Button */}
         <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 z-30">
-          <button className="bg-[#0A0A0E] border border-white/20 px-8 py-2 rounded-sm text-[10px] font-bold text-gray-300 uppercase hover:bg-white/10 hover:text-white transition-all duration-300 shadow-[0_5px_15px_rgba(0,0,0,0.5)] flex items-center whitespace-nowrap">
+          <a href="https://www.tiktok.com/@hakudastore/video/7610816443885587732" target="_blank" className="bg-[#0A0A0E] border border-white/20 px-8 py-2 rounded-sm text-[10px] font-bold text-gray-300 uppercase hover:bg-white/10 hover:text-white transition-all duration-300 shadow-[0_5px_15px_rgba(0,0,0,0.5)] flex items-center whitespace-nowrap cursor-pointer">
             XEM CHI TIẾT <span className="ml-2 text-xs">›</span>
-          </button>
+          </a>
         </div>
       </div>
     </section>

@@ -147,10 +147,48 @@ const HomePage = () => {
 
             {/* --- COMPARISON (SO SÁNH) --- */}
             <GundamComparison />
-            <GundamNews />
+            <div id="news">
+                <GundamNews />
+            </div>
+            {/* --- HƯỚNG DẪN --- */}
+            <section id="guide" className="py-8 md:py-16 px-4 md:px-10 max-w-[1400px] mx-auto">
+                <div className="flex justify-between items-center mb-8 border-b border-white/10 pb-3">
+                    <h2 className="text-xl font-black uppercase tracking-widest italic drop-shadow-md">
+                        HƯỚNG DẪN MUA HÀNG
+                    </h2>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="bg-[#0A0A0E]/20 backdrop-blur-md border border-white/5 p-6 rounded-sm hover:border-white/20 transition-all">
+                        <div className="text-4xl font-black text-blue-500 mb-4">01</div>
+                        <h3 className="text-lg font-bold text-white mb-3 uppercase tracking-wide">Chọn Sản Phẩm</h3>
+                        <p className="text-sm text-gray-300 leading-relaxed">
+                            Duyệt qua bộ sưu tập Gundam Nhật Bản và Trung Quốc của chúng tôi. Sử dụng bộ lọc để tìm sản phẩm phù hợp với sở thích của bạn.
+                        </p>
+                    </div>
+
+                    <div className="bg-[#0A0A0E]/20 backdrop-blur-md border border-white/5 p-6 rounded-sm hover:border-white/20 transition-all">
+                        <div className="text-4xl font-black text-blue-500 mb-4">02</div>
+                        <h3 className="text-lg font-bold text-white mb-3 uppercase tracking-wide">Thêm Vào Giỏ Hàng</h3>
+                        <p className="text-sm text-gray-300 leading-relaxed">
+                            Nhấp vào nút "Thêm vào giỏ" để thêm sản phẩm vào giỏ hàng. Bạn có thể điều chỉnh số lượng trước khi thanh toán.
+                        </p>
+                    </div>
+
+                    <div className="bg-[#0A0A0E]/20 backdrop-blur-md border border-white/5 p-6 rounded-sm hover:border-white/20 transition-all">
+                        <div className="text-4xl font-black text-blue-500 mb-4">03</div>
+                        <h3 className="text-lg font-bold text-white mb-3 uppercase tracking-wide">Thanh Toán</h3>
+                        <p className="text-sm text-gray-300 leading-relaxed">
+                            Điền thông tin giao hàng và chọn phương thức thanh toán. Chúng tôi hỗ trợ thanh toán khi nhận hàng (COD).
+                        </p>
+                    </div>
+                </div>
+            </section>
 
             {/* --- FOOTER --- */}
-            <Footer />
+            <div id="contact">
+                <Footer />
+            </div>
         </div>
     );
 };

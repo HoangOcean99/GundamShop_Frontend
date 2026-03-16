@@ -122,13 +122,22 @@ const Header = () => {
                 {[
                     { name: "Trang chủ", path: "/" },
                     { name: "Sản phẩm", path: "/products" },
-                    { name: "Tin tức", path: "#" },
-                    { name: "Hướng dẫn", path: "#" },
-                    { name: "Liên hệ", path: "#" },
+                    { name: "Tin tức", path: "#news" },
+                    { name: "Hướng dẫn", path: "#guide" },
+                    { name: "Liên hệ", path: "#contact" },
                 ].map((item) => (
                     <Link
                         key={item.name}
                         to={item.path}
+                        onClick={(e) => {
+                            if (item.path.startsWith('#')) {
+                                e.preventDefault();
+                                const element = document.getElementById(item.path.substring(1));
+                                if (element) {
+                                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                }
+                            }
+                        }}
                         className="relative pb-1 transition-all duration-300 group hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-blue-500 hover:from-[50%] hover:to-red-500 hover:to-[50%] drop-shadow-sm"
                     >
                         {item.name}
@@ -152,14 +161,23 @@ const Header = () => {
                         {[
                             { name: "Trang chủ", path: "/" },
                             { name: "Sản phẩm", path: "/products" },
-                            { name: "Tin tức", path: "#" },
-                            { name: "Hướng dẫn", path: "#" },
-                            { name: "Liên hệ", path: "#" },
+                            { name: "Tin tức", path: "#news" },
+                            { name: "Hướng dẫn", path: "#guide" },
+                            { name: "Liên hệ", path: "#contact" },
                         ].map((item) => (
                             <Link
                                 key={item.name}
                                 to={item.path}
-                                onClick={() => setIsMobileMenuOpen(false)}
+                                onClick={(e) => {
+                                    setIsMobileMenuOpen(false);
+                                    if (item.path.startsWith('#')) {
+                                        e.preventDefault();
+                                        const element = document.getElementById(item.path.substring(1));
+                                        if (element) {
+                                            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                        }
+                                    }
+                                }}
                                 className="text-[14px] font-bold uppercase tracking-[0.2em] text-gray-300 hover:text-white transition-colors py-2"
                             >
                                 {item.name}
@@ -170,7 +188,7 @@ const Header = () => {
             )}
 
             <div className="flex items-center space-x-4 md:space-x-6">
-                <div 
+                <div
                     ref={searchRef}
                     className="flex items-center bg-white/5 hover:bg-white/10 transition-colors px-4 py-1.5 rounded-full border border-white/10 focus-within:border-white/30 focus-within:bg-white/10 relative"
                 >
@@ -194,7 +212,7 @@ const Header = () => {
                                 <span className="text-[9px] font-black uppercase tracking-widest text-gray-400 px-2 italic">Kết quả tìm kiếm</span>
                                 {isSearching && <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse mr-2"></div>}
                             </div>
-                            
+
                             <div className="max-h-80 overflow-y-auto">
                                 {searchResults.length > 0 ? (
                                     searchResults.map((p) => (
@@ -208,9 +226,9 @@ const Header = () => {
                                             className="flex items-center p-3 hover:bg-white/5 cursor-pointer transition-colors border-b border-white/5 last:border-0 group"
                                         >
                                             <div className="w-10 h-10 bg-white/5 rounded-sm p-1 mr-3 flex-shrink-0">
-                                                <img 
-                                                    src={p.images?.[0] || "https://via.placeholder.com/50"} 
-                                                    alt={p.name} 
+                                                <img
+                                                    src={p.images?.[0] || "https://via.placeholder.com/50"}
+                                                    alt={p.name}
                                                     className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity"
                                                 />
                                             </div>
@@ -231,9 +249,9 @@ const Header = () => {
                                     </div>
                                 )}
                             </div>
-                            
+
                             {searchResults.length > 0 && (
-                                <Link 
+                                <Link
                                     to="/products"
                                     onClick={() => setShowSearchDropdown(false)}
                                     className="block p-3 text-center bg-blue-600/10 hover:bg-blue-600/20 text-[9px] font-black text-blue-400 uppercase tracking-widest transition-colors border-t border-white/5"
