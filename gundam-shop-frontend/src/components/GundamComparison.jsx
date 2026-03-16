@@ -2,7 +2,7 @@ import React from "react";
 
 const GundamComparison = () => {
   return (
-    <section className="relative py-16 overflow-hidden max-w-[1400px] mx-auto px-10">
+    <section className="relative py-8 md:py-16 overflow-hidden max-w-[1400px] mx-auto px-4 md:px-10">
       {/* Background Effects */}
       <div className="absolute top-0 left-0 w-1/3 h-full bg-blue-900/10 blur-[100px] pointer-events-none" />
       <div className="absolute top-0 right-0 w-1/3 h-full bg-red-900/10 blur-[100px] pointer-events-none" />
@@ -23,7 +23,7 @@ const GundamComparison = () => {
           <div className="absolute left-1/2 top-10 bottom-10 w-[1px] bg-gradient-to-b from-transparent via-gray-600 to-transparent hidden md:block z-10" />
 
           {/* Left: Gundam Nhật Bản */}
-          <div className="p-12 pb-16 text-left flex flex-col items-start space-y-8 bg-gradient-to-br from-blue-900/10 to-transparent">
+          <div className="p-6 md:p-12 pb-8 md:pb-16 text-left flex flex-col items-start space-y-6 md:space-y-8 bg-gradient-to-br from-blue-900/10 to-transparent">
             {/* Header style matching design */}
             <div className="w-full border-b border-blue-500/30 pb-4 flex justify-start">
               <div
@@ -64,7 +64,7 @@ const GundamComparison = () => {
           </div>
 
           {/* Right: Gundam Trung Quốc */}
-          <div className="p-12 pb-16 text-right flex flex-col items-end space-y-8 bg-gradient-to-bl from-red-900/10 to-transparent">
+          <div className="p-6 md:p-12 pb-8 md:pb-16 text-right flex flex-col items-end space-y-6 md:space-y-8 bg-gradient-to-bl from-red-900/10 to-transparent">
             {/* Header style matching design */}
             <div className="w-full border-b border-red-500/30 pb-4 flex justify-end">
               <div

@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { IoCartOutline, IoHeartOutline, IoPersonOutline, IoSearchOutline, IoChevronForwardOutline } from "react-icons/io5";
+import { IoCartOutline, IoHeartOutline, IoPersonOutline, IoSearchOutline, IoChevronForwardOutline, IoMenuOutline, IoCloseOutline } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../api/authApi";
 import { onAuthStateChanged } from "firebase/auth";
@@ -16,6 +16,7 @@ const Header = () => {
     const [searchResults, setSearchResults] = useState([]);
     const [showSearchDropdown, setShowSearchDropdown] = useState(false);
     const [isSearching, setIsSearching] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const searchRef = useRef(null);
     const navigate = useNavigate();
 
@@ -105,14 +106,14 @@ const Header = () => {
         return price.toLocaleString("vi-VN") + "đ";
     };
     return (
-        <nav className="flex items-center justify-between px-10 py-6 border-b border-white/5 bg-[#060608]/5 backdrop-blur-md sticky top-0 z-50">
+        <nav className="flex items-center justify-between px-4 md:px-10 py-6 border-b border-white/5 bg-[#060608]/5 backdrop-blur-md sticky top-0 z-50">
             <Link to="/" className="flex items-center space-x-4 cursor-pointer">
                 <img
                     src="/logo.png"
                     alt="Logo"
-                    className="w-20 h-10 object-contain mix-blend-screen"
+                    className="w-16 md:w-20 h-8 md:h-10 object-contain mix-blend-screen"
                 />
-                <span className="font-black italic text-3xl tracking-tighter drop-shadow-lg text-white">
+                <span className="font-black italic text-2xl md:text-3xl tracking-tighter drop-shadow-lg text-white">
                     GUNDAM STORE
                 </span>
             </Link>
@@ -136,7 +137,39 @@ const Header = () => {
                 ))}
             </div>
 
-            <div className="flex items-center space-x-6">
+            {/* Mobile Menu Button */}
+            <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="md:hidden text-gray-300 hover:text-white transition-colors"
+            >
+                {isMobileMenuOpen ? <IoCloseOutline className="w-6 h-6" /> : <IoMenuOutline className="w-6 h-6" />}
+            </button>
+
+            {/* Mobile Menu */}
+            {isMobileMenuOpen && (
+                <div className="absolute top-full left-0 w-full bg-[#060608]/95 backdrop-blur-md border-b border-white/5 md:hidden">
+                    <div className="flex flex-col space-y-4 px-4 py-6">
+                        {[
+                            { name: "Trang chủ", path: "/" },
+                            { name: "Sản phẩm", path: "/products" },
+                            { name: "Tin tức", path: "#" },
+                            { name: "Hướng dẫn", path: "#" },
+                            { name: "Liên hệ", path: "#" },
+                        ].map((item) => (
+                            <Link
+                                key={item.name}
+                                to={item.path}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className="text-[14px] font-bold uppercase tracking-[0.2em] text-gray-300 hover:text-white transition-colors py-2"
+                            >
+                                {item.name}
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+            )}
+
+            <div className="flex items-center space-x-4 md:space-x-6">
                 <div 
                     ref={searchRef}
                     className="flex items-center bg-white/5 hover:bg-white/10 transition-colors px-4 py-1.5 rounded-full border border-white/10 focus-within:border-white/30 focus-within:bg-white/10 relative"

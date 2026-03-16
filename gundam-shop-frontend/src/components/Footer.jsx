@@ -5,11 +5,11 @@ import { IoCallOutline, IoLocationOutline, IoMailOutline } from "react-icons/io5
 
 const Footer = () => {
     return (
-        <footer className="px-10 py-12 bg-[#050507] border-t border-white/10 text-gray-400 relative overflow-hidden">
+        <footer className="px-4 md:px-10 py-8 md:py-12 bg-[#050507] border-t border-white/10 text-gray-400 relative overflow-hidden">
             {/* Subtle footer glow */}
             <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-[2px] bg-gradient-to-r from-transparent via-blue-500/30 to-transparent"></div>
 
-            <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
+            <div className="max-w-[1400px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10">
                 <div className="space-y-4">
                     <h4 className="text-white text-[12px] font-bold uppercase tracking-widest mb-6">
                         THÔNG TIN
@@ -59,7 +59,7 @@ const Footer = () => {
                 </div>
 
                 <div className="space-y-4">
-                    <div className="mb-6 flex justify-between items-start">
+                    <div className="mb-6 flex flex-col md:flex-row md:justify-between md:items-start space-y-4 md:space-y-0">
                         <div className="space-y-3">
                             <div className="flex items-center text-[11px]">
                                 <IoCallOutline className="w-4 h-4 mr-3 text-gray-300" />

@@ -42,7 +42,7 @@ const HomePage = () => {
             <Header />
 
             {/* --- HERO BANNER --- */}
-            <div className="grid grid-cols-2 h-[480px] border-b border-white/5 shadow-[0_10px_30px_rgba(0,0,0,0.5)] z-10 relative">
+            <div className="grid grid-cols-1 md:grid-cols-2 h-[480px] border-b border-white/5 shadow-[0_10px_30px_rgba(0,0,0,0.5)] z-10 relative">
                 {/* Left: Japan */}
                 <div className="relative group overflow-hidden border-r border-black/50 bg-[#050B14]/40">
                     <div className="absolute inset-0 bg-gradient-to-r from-[#03112E]/60 to-transparent z-10"></div>
@@ -52,16 +52,16 @@ const HomePage = () => {
                         className="absolute inset-0 w-[105%] h-[95%] object-contain translate-x-[-120px] translate-y-[20px] z-0 opacity-90 group-hover:scale-105 transition-transform duration-700"
                         alt="JP"
                     />
-                    <div className="relative z-20 p-14 flex flex-col items-end justify-center h-full text-right">
-                        <h1 className="text-5xl font-black leading-tight tracking-wide drop-shadow-[0_0_15px_rgba(0,102,255,0.8)]">
+                    <div className="relative z-20 p-6 md:p-14 flex flex-col items-end justify-center h-full text-right">
+                        <h1 className="text-3xl md:text-5xl font-black leading-tight tracking-wide drop-shadow-[0_0_15px_rgba(0,102,255,0.8)]">
                             GUNDAM
                             <br />
                             NHẬT BẢN
                         </h1>
-                        <p className="text-[18px] tracking-[0.4em] mt-3 mb-8 opacity-90 uppercase font-bold text-blue-200">
+                        <p className="text-[14px] md:text-[18px] tracking-[0.4em] mt-3 mb-8 opacity-90 uppercase font-bold text-blue-200">
                             Chất lượng tinh tế
                         </p>
-                        <Link to="/japan-gundam" className="px-6 py-2.5 bg-blue-900/40 border border-blue-500/50 text-[11px] font-bold uppercase rounded-sm hover:bg-blue-600 hover:border-blue-400 transition-all duration-300 shadow-[0_0_15px_rgba(0,102,255,0.2)] hover:shadow-[0_0_20px_rgba(0,102,255,0.6)] backdrop-blur-sm">
+                        <Link to="/japan-gundam" className="px-4 md:px-6 py-2 md:py-2.5 bg-blue-900/40 border border-blue-500/50 text-[10px] md:text-[11px] font-bold uppercase rounded-sm hover:bg-blue-600 hover:border-blue-400 transition-all duration-300 shadow-[0_0_15px_rgba(0,102,255,0.2)] hover:shadow-[0_0_20px_rgba(0,102,255,0.6)] backdrop-blur-sm">
                             XEM NGAY <span className="ml-2 font-normal">›</span>
                         </Link>
                     </div>
@@ -76,32 +76,32 @@ const HomePage = () => {
                         className="absolute inset-0 w-[110%] h-[115%] object-contain translate-x-[110px] translate-y-[10px] z-0 opacity-90 group-hover:scale-105 transition-transform duration-700"
                         alt="CN"
                     />
-                    <div className="relative z-20 p-14 flex flex-col items-start justify-center h-full">
-                        <h1 className="text-5xl font-black leading-tight tracking-wide drop-shadow-[0_0_15px_rgba(255,51,0,0.8)]">
+                    <div className="relative z-20 p-6 md:p-14 flex flex-col items-start justify-center h-full">
+                        <h1 className="text-3xl md:text-5xl font-black leading-tight tracking-wide drop-shadow-[0_0_15px_rgba(255,51,0,0.8)]">
                             GUNDAM
                             <br />
                             TRUNG QUỐC
                         </h1>
-                        <p className="text-[18px] tracking-[0.4em] mt-3 mb-8 opacity-90 uppercase font-bold text-red-200">
+                        <p className="text-[14px] md:text-[18px] tracking-[0.4em] mt-3 mb-8 opacity-90 uppercase font-bold text-red-200">
                             Mẫu mã ấn tượng
                         </p>
-                        <Link to="/china-gundam" className="px-6 py-2.5 bg-red-900/40 border border-red-500/50 text-[11px] font-bold uppercase rounded-sm hover:bg-red-600 hover:border-red-400 transition-all duration-300 shadow-[0_0_15px_rgba(255,51,0,0.2)] hover:shadow-[0_0_20px_rgba(255,51,0,0.6)] backdrop-blur-sm">
+                        <Link to="/china-gundam" className="px-4 md:px-6 py-2 md:py-2.5 bg-red-900/40 border border-red-500/50 text-[10px] md:text-[11px] font-bold uppercase rounded-sm hover:bg-red-600 hover:border-red-400 transition-all duration-300 shadow-[0_0_15px_rgba(255,51,0,0.2)] hover:shadow-[0_0_20px_rgba(255,51,0,0.6)] backdrop-blur-sm">
                             KHÁM PHÁ <span className="ml-2 font-normal">›</span>
                         </Link>
                     </div>
                 </div>
             </div>
 
-            <section className="px-10 py-12 relative z-20 max-w-[1400px] mx-auto">
+            <section className="px-4 md:px-10 py-12 relative z-20 max-w-[1400px] mx-auto">
                 <div className="flex justify-between items-center mb-8 border-b border-white/10 pb-3">
-                    <h2 className="text-xl font-black uppercase tracking-widest italic drop-shadow-md">
+                    <h2 className="text-lg md:text-xl font-black uppercase tracking-widest italic drop-shadow-md">
                         SẢN PHẨM NỔI BẬT
                     </h2>
-                    <Link to="/products" className="bg-transparent border border-white/10 px-5 py-1.5 text-[10px] rounded-full hover:bg-white/10 transition-colors font-bold uppercase text-gray-300 hover:text-white flex items-center">
+                    <Link to="/products" className="bg-transparent border border-white/10 px-4 md:px-5 py-1.5 text-[9px] md:text-[10px] rounded-full hover:bg-white/10 transition-colors font-bold uppercase text-gray-300 hover:text-white flex items-center">
                         XEM TẤT CẢ <span className="ml-1">›</span>
                     </Link>
                 </div>
-                <div className="grid grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
                     {loading ? (
                         <div className="col-span-4 text-center py-10 text-gray-400 font-bold uppercase tracking-widest">
                             Đang tải sản phẩm...

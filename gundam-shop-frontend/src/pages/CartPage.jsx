@@ -154,8 +154,8 @@ const CartPage = () => {
       <Header />
 
       {/* --- PAGE HEADER --- */}
-      <div className="max-w-[1400px] mx-auto w-full px-10 pt-16 pb-6 relative z-20 text-center">
-        <h1 className="text-4xl font-black italic tracking-wider drop-shadow-lg text-white uppercase">
+      <div className="max-w-[1400px] mx-auto w-full px-4 md:px-10 pt-16 pb-6 relative z-20 text-center">
+        <h1 className="text-2xl md:text-4xl font-black italic tracking-wider drop-shadow-lg text-white uppercase">
           GIỎ HÀNG CỦA BẠN
         </h1>
         <p className="text-xs tracking-[0.3em] font-bold text-gray-400 mt-2 uppercase">
@@ -164,12 +164,12 @@ const CartPage = () => {
       </div>
 
       {/* --- CART CONTENT --- */}
-      <main className="max-w-[1400px] mx-auto w-full grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-10 px-10 py-8 relative z-20 flex-grow">
+      <main className="max-w-[1400px] mx-auto w-full grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-6 md:gap-10 px-4 md:px-10 py-8 relative z-20 flex-grow">
         {/* Cart Items List */}
         <div className="space-y-6">
           <div className="bg-[#0A0A0E]/60 backdrop-blur-xl border border-white/10 rounded-sm shadow-2xl overflow-hidden">
             {/* Header */}
-            <div className="grid grid-cols-[100px_1fr_120px_120px_60px] gap-4 p-4 border-b border-white/5 bg-white/5 text-[10px] font-bold text-gray-400 uppercase tracking-widest text-center items-center">
+            <div className="hidden md:grid grid-cols-[100px_1fr_120px_120px_60px] gap-4 p-4 border-b border-white/5 bg-white/5 text-[10px] font-bold text-gray-400 uppercase tracking-widest text-center items-center">
               <div className="text-left">Sản phẩm</div>
               <div></div>
               <div>Đơn giá</div>
@@ -195,7 +195,7 @@ const CartPage = () => {
                   return (
                     <div
                       key={item._id || item.id}
-                      className="grid grid-cols-[100px_1fr_120px_120px_60px] gap-4 p-4 items-center group hover:bg-white/5 transition-colors"
+                      className="grid grid-cols-1 md:grid-cols-[100px_1fr_120px_120px_60px] gap-4 p-4 items-center group hover:bg-white/5 transition-colors"
                     >
                       {/* Image */}
                       <div className="aspect-square bg-[#111] overflow-hidden rounded-sm relative shadow-inner">

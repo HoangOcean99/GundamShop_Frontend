@@ -23,7 +23,7 @@ const newsData = [
 
 const GundamNews = () => {
   return (
-    <section className="py-16 px-10 max-w-[1400px] mx-auto">
+    <section className="py-8 md:py-16 px-4 md:px-10 max-w-[1400px] mx-auto">
       <div className="flex justify-between items-center mb-8 border-b border-white/10 pb-3">
         <h2 className="text-xl font-black uppercase tracking-widest italic drop-shadow-md">
           TIN TỨC & REVIEW

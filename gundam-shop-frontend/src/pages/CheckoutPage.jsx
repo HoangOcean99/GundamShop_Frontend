@@ -145,16 +145,16 @@ const CheckoutPage = () => {
   return (
     <div className="w-full bg-[#050B14] min-h-screen relative flex flex-col">
       <Header />
-      <main className="container mx-auto px-4 py-12 max-w-[1200px] relative z-10 flex-1">
-        <h1 className="text-3xl font-black italic uppercase tracking-widest text-white mb-12 text-center drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+      <main className="container mx-auto px-4 md:px-4 py-8 md:py-12 max-w-[1200px] relative z-10 flex-1">
+        <h1 className="text-2xl md:text-3xl font-black italic uppercase tracking-widest text-white mb-8 md:mb-12 text-center drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
           Xác nhận thanh toán
         </h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-12 text-left">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-8 md:gap-12 text-left">
           {/* Left: Info Sections */}
           <div className="space-y-8">
             {/* Shipping Info */}
-            <section className="bg-white/5 border border-white/10 rounded-sm p-8 backdrop-blur-md relative overflow-hidden">
+            <section className="bg-white/5 border border-white/10 rounded-sm p-6 md:p-8 backdrop-blur-md relative overflow-hidden">
               <div className="absolute top-0 left-0 w-1 h-full bg-blue-600 shadow-[0_0_10px_rgba(0,102,255,0.5)]"></div>
               <h2 className="flex items-center text-sm font-black uppercase tracking-widest text-white mb-8">
                 <IoLocationOutline className="mr-3 text-blue-500 scale-125" />{" "}
@@ -205,7 +205,7 @@ const CheckoutPage = () => {
             </section>
 
             {/* Payment Method */}
-            <section className="bg-white/5 border border-white/10 rounded-sm p-8 backdrop-blur-md relative overflow-hidden">
+            <section className="bg-white/5 border border-white/10 rounded-sm p-6 md:p-8 backdrop-blur-md relative overflow-hidden">
               <div className="absolute top-0 left-0 w-1 h-full bg-blue-600 shadow-[0_0_10px_rgba(0,102,255,0.5)]"></div>
               <h2 className="flex items-center text-sm font-black uppercase tracking-widest text-white mb-8">
                 <IoCardOutline className="mr-3 text-blue-500 scale-125" />{" "}

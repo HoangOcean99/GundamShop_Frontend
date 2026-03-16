@@ -168,8 +168,8 @@ const ProfilePage = () => {
 
       <Header />
 
-      <div className="max-w-[1400px] mx-auto w-full px-10 pt-16 pb-6 relative z-20 text-left">
-        <h1 className="text-4xl font-black italic tracking-wider drop-shadow-[0_0_20px_rgba(0,102,255,0.5)] text-white uppercase">
+      <div className="max-w-[1400px] mx-auto w-full px-4 md:px-10 pt-16 pb-6 relative z-20 text-left">
+        <h1 className="text-3xl md:text-4xl font-black italic tracking-wider drop-shadow-[0_0_20px_rgba(0,102,255,0.5)] text-white uppercase">
           KHO LƯU TRỮ CÁ NHÂN
         </h1>
         <p className="text-[10px] tracking-[0.4em] font-black text-blue-400/80 mt-2 uppercase">
@@ -177,10 +177,10 @@ const ProfilePage = () => {
         </p>
       </div>
 
-      <main className="max-w-[1400px] mx-auto w-full grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-10 px-10 py-8 relative z-20 flex-grow mb-20">
+      <main className="max-w-[1400px] mx-auto w-full grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6 md:gap-10 px-4 md:px-10 py-8 relative z-20 flex-grow mb-20">
         {/* --- SIDEBAR --- */}
         <aside>
-          <div className="bg-[#0A0A0E]/80 backdrop-blur-2xl border border-white/5 p-6 rounded-sm shadow-2xl relative overflow-hidden group h-full">
+          <div className="bg-[#0A0A0E]/80 backdrop-blur-2xl border border-white/5 p-4 md:p-6 rounded-sm shadow-2xl relative overflow-hidden group h-full">
             <div className="absolute top-0 left-0 w-1 h-full bg-blue-600 shadow-[0_0_15px_rgba(0,102,255,0.5)]"></div>
 
             <div className="flex items-center space-x-4 border-b border-white/5 pb-10 mb-8 mt-4">
@@ -238,10 +238,10 @@ const ProfilePage = () => {
         {/* --- MAIN SECTION --- */}
         <section className="min-h-[600px]">
           {view === 'profile' ? (
-            <div className="bg-[#0A0A0E]/80 backdrop-blur-2xl border border-white/5 p-10 rounded-sm shadow-2xl relative overflow-hidden h-full">
+            <div className="bg-[#0A0A0E]/80 backdrop-blur-2xl border border-white/5 p-6 md:p-10 rounded-sm shadow-2xl relative overflow-hidden h-full">
               <div className="flex items-center justify-between mb-12 border-b border-white/5 pb-6">
                 <h2 className="text-xl font-black italic tracking-[0.2em] text-white flex items-center">
-                  <span className="w-8 h-[2px] bg-blue-600 mr-4"></span> THUYẾT MINH CHI TIẾT
+                  <span className="w-8 h-[2px] bg-blue-600 mr-4"></span> THÔNG TIN CHI TIẾT
                 </h2>
               </div>
 
@@ -299,7 +299,7 @@ const ProfilePage = () => {
               </form>
             </div>
           ) : (
-            <div className="bg-[#0A0A0E]/80 backdrop-blur-2xl border border-white/5 p-10 rounded-sm shadow-2xl relative overflow-hidden h-full flex flex-col">
+            <div className="bg-[#0A0A0E]/80 backdrop-blur-2xl border border-white/5 p-6 md:p-10 rounded-sm shadow-2xl relative overflow-hidden h-full flex flex-col">
               <div className="flex items-center justify-between mb-12 border-b border-white/5 pb-6">
                 <h2 className="text-xl font-black italic tracking-[0.2em] text-white flex items-center">
                   <span className="w-8 h-[2px] bg-red-600 mr-4 shadow-[0_0_10px_rgba(255,0,0,0.5)]"></span> NHẬT KÝ ĐƠN HÀNG

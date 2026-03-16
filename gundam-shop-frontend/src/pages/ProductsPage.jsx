@@ -86,16 +86,16 @@ const ProductsPage = () => {
       <div className="absolute inset-0 bg-black/40 z-0"></div>
       <Header />
 
-      <div className="max-w-[1400px] mx-auto w-full px-10 pt-16 pb-4 relative z-20 text-left">
-        <h1 className="text-5xl font-black italic tracking-wider drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] text-white uppercase">
+      <div className="max-w-[1400px] mx-auto w-full px-4 md:px-10 pt-16 pb-4 relative z-20 text-left">
+        <h1 className="text-3xl md:text-5xl font-black italic tracking-wider drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] text-white uppercase">
           Tất cả sản phẩm
         </h1>
-        <p className="text-lg tracking-[0.3em] font-bold text-gray-300 mt-2 uppercase">
+        <p className="text-base md:text-lg tracking-[0.3em] font-bold text-gray-300 mt-2 uppercase">
           Khám phá bộ sưu tập Gundam
         </p>
       </div>
 
-      <div className="max-w-[1400px] mx-auto w-full grid grid-cols-[280px_1fr] gap-10 px-10 py-12 relative z-20 flex-grow">
+      <div className="max-w-[1400px] mx-auto w-full grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6 md:gap-10 px-4 md:px-10 py-12 relative z-20 flex-grow">
         <aside className="space-y-8">
           <div className="bg-[#0A0A0E]/60 backdrop-blur-xl border border-white/10 p-6 rounded-sm shadow-2xl sticky top-24">
             <div className="flex items-center space-x-3 mb-8 pb-4 border-b border-white/5">

@@ -106,18 +106,18 @@ const JapanGundamPage = () => {
       <div className="absolute inset-0 bg-black/20 z-0"></div>
       <Header />
 
-      <div className="max-w-[1400px] mx-auto w-full px-10 pt-16 pb-4 relative z-20 text-left">
-        <h1 className="text-5xl font-black italic tracking-wider drop-shadow-[0_0_20px_rgba(0,102,255,0.6)] text-white">
+      <div className="max-w-[1400px] mx-auto w-full px-4 md:px-10 pt-16 pb-4 relative z-20 text-left">
+        <h1 className="text-3xl md:text-5xl font-black italic tracking-wider drop-shadow-[0_0_20px_rgba(0,102,255,0.6)] text-white">
           GUNDAM NHẬT BẢN
         </h1>
-        <p className="text-lg tracking-[0.3em] font-bold text-blue-200/80 mt-2 uppercase">
+        <p className="text-base md:text-lg tracking-[0.3em] font-bold text-blue-200/80 mt-2 uppercase">
           Chất lượng tinh tế
         </p>
       </div>
 
-      <div className="max-w-[1400px] mx-auto w-full grid grid-cols-[280px_1fr] gap-10 px-10 py-12 relative z-20 flex-grow">
+      <div className="max-w-[1400px] mx-auto w-full grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6 md:gap-10 px-4 md:px-10 py-12 relative z-20 flex-grow">
         <aside className="space-y-8">
-          <div className="bg-[#0A0A0E]/30 backdrop-blur-xl border border-white/10 p-6 rounded-sm shadow-2xl relative overflow-hidden group sticky top-24">
+          <div className="bg-[#0A0A0E]/30 backdrop-blur-xl border border-white/10 p-4 md:p-6 rounded-sm shadow-2xl relative overflow-hidden group sticky top-24">
             <div className="absolute top-0 left-0 w-1 h-full bg-blue-900/40 shadow-[0_0_10px_rgba(0,102,255,0.2)]"></div>
             <div className="flex items-center space-x-3 mb-8 pb-4 border-b border-white/5">
               <div className="w-8 h-8 bg-blue-600/20 rounded flex items-center justify-center">
@@ -161,7 +161,7 @@ const JapanGundamPage = () => {
               <section
                 key={sIdx}
                 ref={el => sectionRefs.current[sIdx] = el}
-                className="space-y-8 bg-[#0A0A0E]/40 backdrop-blur-lg border border-white/5 p-8 rounded-sm shadow-xl relative overflow-hidden"
+                className="space-y-8 bg-[#0A0A0E]/40 backdrop-blur-lg border border-white/5 p-6 md:p-8 rounded-sm shadow-xl relative overflow-hidden"
               >
                 <div className="flex items-center justify-between border-b border-white/10 pb-6">
                   <h2 className="text-2xl font-black italic flex items-center tracking-widest text-white">

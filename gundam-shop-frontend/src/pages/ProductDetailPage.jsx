@@ -210,7 +210,7 @@ const ProductDetailPage = () => {
 
       <Header />
 
-      <main className="relative z-10 flex-1 container mx-auto px-4 py-12 max-w-[1200px]">
+      <main className="relative z-10 flex-1 container mx-auto px-4 md:px-4 py-8 md:py-12 max-w-[1200px]">
         <button
           onClick={() => navigate(-1)}
           className="flex items-center text-gray-400 hover:text-white transition-colors mb-8 group cursor-pointer"
@@ -219,7 +219,7 @@ const ProductDetailPage = () => {
           <span className="text-xs font-bold uppercase tracking-widest">Quay lại danh sách</span>
         </button>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[450px_1fr] gap-12 bg-black/40 backdrop-blur-2xl border border-white/10 rounded-sm p-8 shadow-2xl relative overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-[450px_1fr] gap-6 md:gap-12 bg-black/40 backdrop-blur-2xl border border-white/10 rounded-sm p-4 md:p-8 shadow-2xl relative overflow-hidden">
           {/* Dynamic Glow Ornament */}
           <div className={`absolute top-0 right-0 w-64 h-64 ${accentColor === 'blue' ? 'bg-blue-600/10' : 'bg-red-600/10'} blur-[100px] -z-10`}></div>
           
@@ -261,7 +261,7 @@ const ProductDetailPage = () => {
                 <span>/</span>
                 <span>{product.scale}</span>
               </div>
-              <h1 className="text-2xl lg:text-3xl font-black text-white italic tracking-tight uppercase leading-none mb-4 drop-shadow-[0_0_10px_rgba(255,255,255,0.1)]">
+              <h1 className="text-xl md:text-2xl lg:text-3xl font-black text-white italic tracking-tight uppercase leading-none mb-4 drop-shadow-[0_0_10px_rgba(255,255,255,0.1)]">
                 {product.name}
               </h1>
               <div className="flex items-center space-x-1 mb-6">
